@@ -15,9 +15,9 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-             gravity: {
+             gravity: {         //i think we need to get rid of this
               x: 0,
-              y: 25           
+              y: 0           
           },
           debug: false
         }
