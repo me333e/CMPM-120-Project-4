@@ -1,7 +1,7 @@
 
-export class GameOver extends Phaser.Scene {
+export class GameWin extends Phaser.Scene {
     constructor() {
-        super('GameOver');
+        super('GameWin');
     }
 
     /*init(data) {
@@ -13,7 +13,7 @@ export class GameOver extends Phaser.Scene {
     }
 
     create() {
-        this.add.text(375, 50, 'YOU LOSE', { fontSize: '128px', fill: '#FFF', align: "center" });
+        this.add.text(375, 50, 'YOU Win', { fontSize: '128px', fill: '#FFF', align: "center" });
         //this.add.text(350, 340, 'High Score: ' + this.highscore, { fontSize: '78px', fill: '#FFF', align: "center" });
         this.add.text(375, 600, 'Press R to restart', { fontSize: '50px', fill: '#FFF', align: "center" });
         this.r = this.input.keyboard.addKey("R", false, true);
@@ -22,7 +22,7 @@ export class GameOver extends Phaser.Scene {
     update(time) {
         if (this.r.isDown)
         {
-            this.scene.stop('GameOver');
+            this.scene.stop('GameWin');
             this.scene.start("Start"/*, {high_score: this.highscore}*/);
         }
     }
