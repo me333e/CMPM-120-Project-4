@@ -48,6 +48,8 @@ export class Start extends Phaser.Scene {
         this.scene.launch('UI');            //we can change to our own later
         this.playerhp = 100;
         this.wave = 1;
+        this.currency = 0;
+        this.timer = 0;
 
         this.anims.create({
                 key: "idle",
@@ -83,10 +85,16 @@ export class Start extends Phaser.Scene {
 
     }
 
-    update(time) {
+    update(time, delta) {
+        this.timer += delta;
+        while (this.timer > 1000) {
+            this.currency += 1;
+            this.timer -= 1000;
+        }
 
         this.events.emit('updateHP', this.playerhp);    //use when you want to update hp
         this.events.emit('updateWave', this.wave);      //use when you want to update wave number
+        this.events.emit('updateCurrency', this.currency);      //use when you want to update wave number
 
     }
 

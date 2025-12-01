@@ -21,10 +21,16 @@ export class UI extends Phaser.Scene {
             fill: '#fff' 
         }).setOrigin(0);
 
+        this.currencyText = this.add.text(20, 46, 'Currency: 0', { 
+            fontSize: '24px', 
+            fill: '#fff' 
+        }).setOrigin(0);
+
         let gameScene = this.scene.get('Start');
         if (gameScene) {
             gameScene.events.on('updateHP', this.updateHP, this);
             gameScene.events.on('updateWave', this.updateWave, this);
+            gameScene.events.on('updateCurrency', this.updateCurrency, this);
         }
     }
 
@@ -34,6 +40,10 @@ export class UI extends Phaser.Scene {
 
     updateWave(count) {
         this.waveText.setText(`Wave ${count}`);
+    }
+
+    updateCurrency(count) {
+        this.currencyText.setText(`Currency: ${count}`);
     }
 
 }   
