@@ -49,6 +49,13 @@ export class Start extends Phaser.Scene {
         this.playerhp = 100;
         this.wave = 1;
 
+        this.anims.create({
+                key: "idle",
+                frames: this.anims.generateFrameNumbers('basicShooter', {start: 0, end: 4}),
+                frameRate: 6,
+                repeat: -1
+            });
+
         //will need to make more buttons for every tower area, maybe there's a way to make them all at once
         this.buttons = this.add.group("buttons");
 
@@ -101,7 +108,7 @@ export class Start extends Phaser.Scene {
             this.buttons.setVisible(false);
             this.buttons.enable = false;
 
-            const basic = new BasicShooter({scene: this, x, y,});
+            const basic = new BasicShooter({scene: this, x: 490, y: 145,});
             basic.setDepth(1);
     }
 

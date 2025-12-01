@@ -10,6 +10,8 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
         super(scene, x, y, 'basicShooter');
         this.setOrigin(0, 1);
         scene.add.existing(this);
+        this.setScale(2);
+        this.play("idle");
 
     }
 }
