@@ -18,7 +18,7 @@ export class Start extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('tilesheet', 'assets/monochrome_tilemap_packed.png');   //insert our own tilesheet here
+        this.load.image('tilesheet', 'assets/TilesetFloor.png');   //insert our own tilesheet here
         this.load.tilemapTiledJSON('tiles', 'assets/project3map.tmj');          //insert our own tmj map
 
     }
