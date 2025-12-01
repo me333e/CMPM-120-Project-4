@@ -38,6 +38,13 @@ export class Start extends Phaser.Scene {
         this.playerhp = 100;
         this.wave = 1;
 
+        this.buildButton = this.add.image(4395, 455, 'button').setOrigin(0);
+        this.buildButton.setInteractive();
+        this.buildBbutton.on('pointerdown', () => { 
+            this.buildTower();
+        });
+        this.buildButtonClicked = false;
+
     }
 
     update(time) {
@@ -45,6 +52,19 @@ export class Start extends Phaser.Scene {
         this.events.emit('updateHP', this.playerhp);    //use when you want to update hp
         this.events.emit('updateWave', this.wave);      //use when you want to update wave number
 
+    }
+
+    buildTower() {
+        if (!this.buildButtonClicked) {
+                this.buildButtonClicked = true;
+                
+            }
+        else {
+                this.button.setVisible(true);
+                this.buttonPressed.setVisible(false);
+                this.buildButtonClicked = false;
+                this.godMode = false;
+            }
     }
 
 
