@@ -26,7 +26,7 @@ export class Start extends Phaser.Scene {
     create() {
 
         this.map = this.add.tilemap('tiles');
-        var tileset = this.map.addTilesetImage('monochrome_tilemap_packed', 'tilesheet');   //change when we use our own
+        var tileset = this.map.addTilesetImage('TilesetFloor', 'tilesheet');   //change when we use our own
         
         this.layer = this.map.createLayer("Ground", tileset, 0, 26);            //change to background or decorations
         this.layer2 = this.map.createLayer("Background", tileset, 0, 26);       //change to ground player can place towers on
