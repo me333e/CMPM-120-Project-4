@@ -18,20 +18,22 @@ export class Start extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('tilesheet', 'assets/TilesetFloor.png');   //insert our own tilesheet here
-        this.load.tilemapTiledJSON('tiles', 'assets/project3map.tmj');          //insert our own tmj map
+        this.load.image('tilesheet', 'assets/TilesetFloor.png');
+        this.load.tilemapTiledJSON('tiles', 'assets/project4map.tmj');
 
     }
 
     create() {
 
         this.map = this.add.tilemap('tiles');
-        var tileset = this.map.addTilesetImage('TilesetFloor', 'tilesheet');   //change when we use our own
+        var tileset = this.map.addTilesetImage('TilesetFloor', 'tilesheet');
         
-        this.layer = this.map.createLayer("Ground", tileset, 0, 26);            //change to background or decorations
-        this.layer2 = this.map.createLayer("Background", tileset, 0, 26);       //change to ground player can place towers on
+        this.layer = this.map.createLayer("Grass", tileset, 0, 26);
+        this.layer2 = this.map.createLayer("Path", tileset, 0, 26);
+        this.layer3 = this.map.createLayer("TowerGround", tileset, 0, 26);
         this.layer.setDepth(0);
         this.layer2.setDepth(0);
+        this.layer3.setDepth(0);
 
         this.scene.launch('UI');            //we can change to our own later
     }
