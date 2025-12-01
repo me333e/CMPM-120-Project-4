@@ -22,8 +22,15 @@ export class Start extends Phaser.Scene {
         this.load.tilemapTiledJSON('tiles', 'assets/project4map.tmj');
 
         this.load.image('buildButton', 'assets/buildButton.png');
-        this.load.image('basicButton', 'assets/Arrow.png');
-        this.load.image('basicButtonDisabled', 'assets/ArrowDisabled.png');
+        this.load.image('basicButton', 'assets/Fireball.png');
+        this.load.image('basicButtonDisabled', 'assets/FireballDisabled.png');
+
+        this.load.spritesheet('basicShooter', 'assets/NovicePyromancer.png', 
+            {
+                frameWidth: 16,
+                frameHeight: 16,
+            }
+        );
 
     }
 
@@ -41,6 +48,9 @@ export class Start extends Phaser.Scene {
         this.scene.launch('UI');            //we can change to our own later
         this.playerhp = 100;
         this.wave = 1;
+
+        //will need to make more buttons for every tower area, maybe there's a way to make them all at once
+        this.buttons = this.add.group("buttons");
 
         this.buildButton = this.add.image(496, 130, 'buildButton').setOrigin(0);
         this.buildButton.setInteractive();
@@ -61,6 +71,9 @@ export class Start extends Phaser.Scene {
         this.basicButtonDisabled = this.add.image(360, 90, 'basicButtonDisabled').setOrigin(0);
         this.basicButtonDisabled.setVisible(false);
 
+        this.buttons.add(this.buildButton);
+        this.buttons.add(this.basicButton);
+
     }
 
     update(time) {
@@ -72,8 +85,8 @@ export class Start extends Phaser.Scene {
 
     buildTower() {
         if (!this.buildButtonClicked) {
-                this.buildButtonClicked = true;
-                this.basicButton.setVisible(true);
+                this.buildButtonClicked = true;         //add conditions to see if player has enough currency to build tower
+                this.basicButton.setVisible(true);      //otherwise display the disabled version of the button
                 this.basicButton.enable = true;
         }
         else {
@@ -84,16 +97,12 @@ export class Start extends Phaser.Scene {
     }
 
     buildBasic() {
-        if (!this.buildButtonClicked) {
-                this.buildButtonClicked = true;
-                this.basicButton.setVisible(true);
-                this.basicButton.enable = true;
-        }
-        else {
-                this.buildButtonClicked = false;
-                this.basicButton.setVisible(false);
-                this.basicButton.enable = false;
-        }
+            this.buildButtonClicked = false;
+            this.buttons.setVisible(false);
+            this.buttons.enable = false;
+
+            const basic = new BasicShooter({scene: this, x, y,});
+            basic.setDepth(1);
     }
 
 
