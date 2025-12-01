@@ -3,7 +3,7 @@ import {Candy} from "../gameobjects/candy.js";
 import {Monster} from "../gameobjects/monster.js";
 import {Spike} from "../gameobjects/spike.js";
 import {FallingPlatform} from "../gameobjects/fallingPlatform.js";
-import {MovingPlatform} from "../gameobjects/movingPlatform.js";
+import {BasicShooter} from "../gameobjects/basicShooter.js";
 import {AppearingSpike} from "../gameobjects/appearingSpike.js";
 import {UI} from '../scenes/UI.js';
 import { Checkpoint } from "../gameobjects/checkpoint.js";
@@ -20,6 +20,10 @@ export class Start extends Phaser.Scene {
     preload() {
         this.load.image('tilesheet', 'assets/TilesetFloor.png');
         this.load.tilemapTiledJSON('tiles', 'assets/project4map.tmj');
+
+        this.load.image('buildButton', 'assets/buildButton.png');
+        this.load.image('basicButton', 'assets/Arrow.png');
+        this.load.image('basicButtonDisabled', 'assets/ArrowDisabled.png');
 
     }
 
@@ -38,12 +42,24 @@ export class Start extends Phaser.Scene {
         this.playerhp = 100;
         this.wave = 1;
 
-        this.buildButton = this.add.image(4395, 455, 'button').setOrigin(0);
+        this.buildButton = this.add.image(496, 130, 'buildButton').setOrigin(0);
         this.buildButton.setInteractive();
-        this.buildBbutton.on('pointerdown', () => { 
+        this.buildButton.on('pointerdown', () => { 
             this.buildTower();
         });
         this.buildButtonClicked = false;
+
+        this.basicButton = this.add.image(460, 123, 'basicButton').setOrigin(0);
+        this.basicButton.setInteractive();
+        this.basicButton.setVisible(false);
+        this.basicButton.enable = false;
+        this.basicButton.on('pointerdown', () => { 
+            this.buildBasic();
+        });
+        this.basicButtonClicked = false;
+
+        this.basicButtonDisabled = this.add.image(360, 90, 'basicButtonDisabled').setOrigin(0);
+        this.basicButtonDisabled.setVisible(false);
 
     }
 
@@ -57,14 +73,27 @@ export class Start extends Phaser.Scene {
     buildTower() {
         if (!this.buildButtonClicked) {
                 this.buildButtonClicked = true;
-                
-            }
+                this.basicButton.setVisible(true);
+                this.basicButton.enable = true;
+        }
         else {
-                this.button.setVisible(true);
-                this.buttonPressed.setVisible(false);
                 this.buildButtonClicked = false;
-                this.godMode = false;
-            }
+                this.basicButton.setVisible(false);
+                this.basicButton.enable = false;
+        }
+    }
+
+    buildBasic() {
+        if (!this.buildButtonClicked) {
+                this.buildButtonClicked = true;
+                this.basicButton.setVisible(true);
+                this.basicButton.enable = true;
+        }
+        else {
+                this.buildButtonClicked = false;
+                this.basicButton.setVisible(false);
+                this.basicButton.enable = false;
+        }
     }
 
 
