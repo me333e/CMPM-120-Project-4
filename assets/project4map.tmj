@@ -158,7 +158,7 @@
         {
          "draworder":"topdown",
          "id":4,
-         "name":"Tplaces",
+         "name":"buttonPlacements",
          "objects":[
                 {
                  "gid":332,

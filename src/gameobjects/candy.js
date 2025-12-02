@@ -1,5 +1,5 @@
 
-export class Candy extends Phaser.GameObjects.Sprite {
+export class ButtonPlacements extends Phaser.GameObjects.Sprite {
     constructor({
         scene,
         x = 0,
