@@ -1,5 +1,5 @@
 import {FallingSpike} from "../gameobjects/fallingSpike.js";
-import {Candy} from "../gameobjects/candy.js";
+import {ButtonPlacements} from "../gameobjects/buttonPlacements.js";
 import {Monster} from "../gameobjects/monster.js";
 import {Spike} from "../gameobjects/spike.js";
 import {FallingPlatform} from "../gameobjects/fallingPlatform.js";
