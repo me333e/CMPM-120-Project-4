@@ -65,7 +65,7 @@ export class Start extends Phaser.Scene {
             const button = new ButtonPlacement({
                 scene: this, 
                 x: x + 400, 
-                y: y + 50, 
+                y: y + 36, 
                 basicB: 'basicButton', 
                 basicBD: 'basicButtonDisabled', 
                 basicA: this.basicAfford,
