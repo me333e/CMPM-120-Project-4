@@ -21,7 +21,7 @@ export class Start extends Phaser.Scene {
         this.load.image('tilesheet', 'assets/TilesetFloor.png');
         this.load.tilemapTiledJSON('tiles', 'assets/project4map.tmj');
 
-        this.load.image('buildButton', 'assets/Interact.png');
+        this.load.image('buildButton', 'assets/buildButton.png');
         this.load.image('basicButton', 'assets/Fireball.png');
         this.load.image('basicButtonDisabled', 'assets/FireballDisabled.png');
 
@@ -49,6 +49,8 @@ export class Start extends Phaser.Scene {
         this.currency = 0;
         this.timer = 0;
 
+        this.basicAfford = false;
+
         this.anims.create({
             key: "idle",
             frames: this.anims.generateFrameNumbers('basicShooter', {start: 0, end: 3}),
@@ -59,12 +61,11 @@ export class Start extends Phaser.Scene {
         var bp = this.map.getObjectLayer('buttonPlacements');
 
         bp.objects.forEach((placement) => {
-            const {x, y, name} = placement;
+            const {x, y} = placement;
             const button = new ButtonPlacement({
                 scene: this, 
                 x: x + 400, 
                 y: y + 50, 
-                where: name, 
                 basicB: 'basicButton', 
                 basicBD: 'basicButtonDisabled', 
                 basicA: this.basicAfford,
