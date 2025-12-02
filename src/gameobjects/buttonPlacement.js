@@ -6,19 +6,17 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         x = 0,
         y = 0,
         basicB,
-        basicBD,
-        basicA,
-        cur
+        basicBD
     }) 
     
     {
         super(scene, x, y, 'buildButton');
         this.setOrigin(0, 1);
-        //scene.add.existing(this);
+        this.scene = scene;
+        this.x = x;
+        this.y = y;
 
         this.buttons = scene.add.group("buttons");
-        this.basicA = basicA;
-        this.cur = cur;
 
         this.buildButton = scene.add.image(x, y, 'buildButton').setOrigin(0);
         this.buildButton.setInteractive();
@@ -46,8 +44,7 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
     buildTower() {
         if (!this.buildButtonClicked) {
             this.buildButtonClicked = true;         //add conditions to see if player has enough currency to build tower
-            console.log(this.basicA);
-            if (this.basicA == true) {                   //the basicAfford is not updated if the build button is left opened, should fix this
+            if (this.scene.basicAfford == true) {   //the basicAfford is not updated if the build button is left opened, should fix this
                 this.basicButtonDisabled.setVisible(false);
                 this.basicButton.setVisible(true);
                 this.basicButton.enable = true;
@@ -70,9 +67,9 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         this.buildButtonClicked = false;
         this.buttons.setVisible(false);
         this.buttons.enable = false;
-        this.cur -= 5;
+        this.scene.currency -= 5;
 
-        const basic = new BasicShooter({scene: this, x, y,});
+        const basic = new BasicShooter({scene: this.scene, x: this.x - 5, y: this.y + 12,});
         basic.setDepth(2);
         basic.setInteractive();
         basic.on('pointerdown', () => { 

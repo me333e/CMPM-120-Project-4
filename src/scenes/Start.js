@@ -67,9 +67,7 @@ export class Start extends Phaser.Scene {
                 x: x + 400, 
                 y: y + 36, 
                 basicB: 'basicButton', 
-                basicBD: 'basicButtonDisabled', 
-                basicA: this.basicAfford,
-                cur: this.currency
+                basicBD: 'basicButtonDisabled'
             });
             button.setDepth(1);
         });
@@ -84,7 +82,7 @@ export class Start extends Phaser.Scene {
             this.timer -= 1000;
         }
 
-        if (this.currency > 5) {
+        if (this.currency >= 5) {
             this.basicAfford = true;
         }
         else {
