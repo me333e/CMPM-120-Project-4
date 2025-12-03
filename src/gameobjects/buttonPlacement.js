@@ -81,4 +81,12 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         //add the upgrade option and delete option which will give the build button options back and refund some currency
     }
 
+    /*
+      in build:
+         store which mode you are showing (disabled/active)
+      in preupdate:
+         if disabled and now has money: switch mode (hide disabled button, show active button)
+         and vice versa: if in active mode and now does not have money: switch mode (hide active button, show disabled button)
+    */
+
 }
