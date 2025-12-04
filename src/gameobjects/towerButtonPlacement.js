@@ -24,7 +24,7 @@ export class TowerButtonPlacement extends Phaser.GameObjects.Sprite {
         this.buttonDisabled.setVisible(false);
 
         this.on('pointerdown', () => { 
-            this.ButtonPlacement.buildTower();
+            ButtonPlacement.buildTower(active);
         });
     }
 

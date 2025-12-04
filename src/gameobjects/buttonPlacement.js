@@ -47,7 +47,7 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
                 scene: scene, 
                 x: placement.x, 
                 y: placement.y,
-                active: placement,active,
+                active: placement.active,
                 disabled: placement.disabled,
                 afford: placement.afford
             });
@@ -62,7 +62,7 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         });
         */
         this.on('pointerdown', () => { 
-            this.TowerButtonPlacement.buildButton();
+            TowerButtonPlacement.buildButton();
         });
 
         /*
@@ -132,12 +132,12 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         }
     }*/
 
-    buildTower() {
+    buildTower(which) {
         this.buildButtonClicked = false;
         this.buttons.setVisible(false);
         this.buttons.enable = false;
 
-        if () {
+        if (which == 'basicButton') {
             this.scene.currency -= 5;
             const basic = new BasicShooter({scene: this.scene, x: this.x - 5, y: this.y + 7,});
             basic.setDepth(2);
@@ -146,7 +146,7 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
                 this.upgrades();
             });
         }
-        else if () {
+        else if (which == 'debuffButton') {
             this.scene.currency -= 6;
             const basic = new DebuffShooter({scene: this.scene, x: this.x - 5, y: this.y + 7,});
             basic.setDepth(2);
@@ -155,7 +155,7 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
                 this.upgrades();
             });
         }
-        else if () {
+        else if (which == 'rangeButton') {
             this.scene.currency -= 7;
             const basic = new RangeShooter({scene: this.scene, x: this.x - 5, y: this.y + 7,});
             basic.setDepth(2);
@@ -164,7 +164,7 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
                 this.upgrades();
             });
         }
-        else if () {
+        else if (which == 'movingButton') {
             this.scene.currency -= 7;
             const basic = new MovingShooter({scene: this.scene, x: this.x - 5, y: this.y + 7,});
             basic.setDepth(2);
