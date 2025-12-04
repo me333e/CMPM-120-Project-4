@@ -1,11 +1,11 @@
 import {ButtonPlacement} from "../gameobjects/buttonPlacement.js";
-import { TowerButtonPlacement } from "../gameobjects/towerButtonPlacement.js";
-import { MonsterPathing } from "../gameobjects/monsterPathing.js";
+import {TowerButtonPlacement} from "../gameobjects/towerButtonPlacement.js";
+import {MonsterPathing} from "../gameobjects/monsterPathing.js";
 import {BasicShooter} from "../gameobjects/basicShooter.js";
 import {DebuffShooter} from "../gameobjects/debuffShooter.js";
 import {RangeShooter} from "../gameobjects/rangeShooter.js";
 import {MovingShooter} from "../gameobjects/movingShooter.js";
-import { Monster } from '../gameobjects/monster.js';
+import {Monster} from '../gameobjects/monster.js';
 import {UI} from '../scenes/UI.js';
 
 export class Start extends Phaser.Scene {
@@ -75,6 +75,8 @@ export class Start extends Phaser.Scene {
         this.timer = 0;
 
         this.basicAfford = false;
+        this.debuffAfford = false;
+        this.rangeMovingAfford = false;
 
         this.anims.create({
             key: "idleB",
@@ -113,7 +115,13 @@ export class Start extends Phaser.Scene {
                 x: x + 400, 
                 y: y + 47, 
                 basicB: 'basicButton', 
-                basicBD: 'basicButtonDisabled'
+                basicBD: 'basicButtonDisabled',
+                debuffB: 'debuffButton',
+                debuffBD: 'debuffButtonDisabled',
+                rangeB: 'rangeButton',
+                rangeBD: 'rangeButtonDisabled',
+                movingB: 'movingButton',
+                movingBD: 'movingButtonDisabled'
             });
             button.setDepth(1);
         });
@@ -128,11 +136,25 @@ export class Start extends Phaser.Scene {
             this.timer -= 1000;
         }
 
-        if (this.currency >= 5) {
+        if (this.currency >= 7) {
             this.basicAfford = true;
+            this.debuffAfford = true;
+            this.rangeMovingAfford = true;
+        }
+        else if (this.currency >= 6) {
+            this.basicAfford = true;
+            this.debuffAfford = true;
+            this.rangeMovingAfford = false;
+        }
+        else if (this.currency >= 5) {
+            this.basicAfford = true;
+            this.debuffAfford = false;
+            this.rangeMovingAfford = false;
         }
         else {
             this.basicAfford = false;
+            this.debuffAfford = false;
+            this.rangeMovingAfford = false;
         }
 
         this.events.emit('updateHP', this.playerhp);    //use when you want to update hp

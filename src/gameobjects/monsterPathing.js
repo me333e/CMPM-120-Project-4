@@ -2,7 +2,7 @@
 
 // enemy pathing logic for monsters
 
-import { Monster } from '../gameobjects/monster.js';
+import {Monster} from '../gameobjects/monster.js';
 
 export class MonsterPathing {
     constructor(scene, startX, startY) {

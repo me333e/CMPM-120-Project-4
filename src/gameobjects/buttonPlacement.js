@@ -1,5 +1,8 @@
 import {BasicShooter} from "../gameobjects/basicShooter.js";
-import { TowerButtonPlacement } from "../gameobjects/towerButtonPlacement.js";
+import {DebuffShooter} from "../gameobjects/debuffShooter.js";
+import {RangeShooter} from "../gameobjects/rangeShooter.js";
+import {MovingShooter} from "../gameobjects/movingShooter.js";
+import {TowerButtonPlacement} from "../gameobjects/towerButtonPlacement.js";
 
 export class ButtonPlacement extends Phaser.GameObjects.Sprite {
     constructor({
@@ -7,7 +10,13 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         x = 0,
         y = 0,
         basicB,
-        basicBD
+        basicBD,
+        debuffB,
+        debuffBD,
+        rangeB,
+        rangeBD,
+        movingB,
+        movingBD
     }) 
     
     {
@@ -19,9 +28,31 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         this.x = x;
         this.y = y;
         this.basicActive = false;
-        this.buildButtonClicked = false;
+        this.debuffActive = false;
+        this.rangeActive = false;
+        this.movingActive = false;
+        //this.buildButtonClicked = false;
 
         this.buttons = scene.add.group("buttons");
+
+        const towerButtons = [
+            { active: basicB, disabled: basicBD, x: x - 36, y: y - 17, afford: this.scene.basicAfford },
+            { active: debuffB, disabled: debuffBD, x: x - 5, y: y - 48, afford: this.scene.debuffAfford },
+            { active: rangeB, disabled: rangeBD, x: x + 27, y: y - 17, afford: this.scene.rangeMovingAfford },
+            { active: movingB, disabled: movingBD, x: x - 5, y: y + 12, afford: this.scene.rangeMovingAfford },
+        ];
+
+        towerButtons.forEach((placement) => {
+            const towerButton = new TowerButtonPlacement({
+                scene: scene, 
+                x: placement.x, 
+                y: placement.y,
+                active: placement,active,
+                disabled: placement.disabled,
+                afford: placement.afford
+            });
+            this.buttons.add(towerButton);
+        });
 
         /*
         this.buildButton = scene.add.image(x, y, 'buildButton').setOrigin(0);
@@ -31,14 +62,14 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         });
         */
         this.on('pointerdown', () => { 
-            this.buildButton();
+            this.TowerButtonPlacement.buildButton();
         });
 
         /*
         this.basicButton = scene.add.image(x - 36, y - 17, basicB).setOrigin(0);
-        this.debuffButton = scene.add.image(x - 5, y - 48, basicB).setOrigin(0);
-        this.rangeButton = scene.add.image(x + 27, y - 17, basicB).setOrigin(0);
-        this.movingButton = scene.add.image(x - 5, y + 12, basicB).setOrigin(0);
+        this.debuffButton = scene.add.image(x - 5, y - 48, debuffB).setOrigin(0);
+        this.rangeButton = scene.add.image(x + 27, y - 17, rangeB).setOrigin(0);
+        this.movingButton = scene.add.image(x - 5, y + 12, movingB).setOrigin(0);
         */
 
         /*
@@ -54,26 +85,32 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         });
         */
 
-        this.basicButton = scene.add.image(x - 36, y - 17, basicB).setOrigin(0);
+        /*this.basicButton = scene.add.image(x - 36, y - 17, basicB).setOrigin(0);
         this.basicButton.setInteractive();
         this.basicButton.setVisible(false);
         this.basicButton.enable = false;
         this.basicButton.on('pointerdown', () => { 
             this.buildBasic();
-        });
+        });*/
 
-        this.basicButtonDisabled = scene.add.image(x - 36, y - 17, basicBD).setOrigin(0);
+       /* this.basicButtonDisabled = scene.add.image(x - 36, y - 17, basicBD).setOrigin(0);
         this.basicButtonDisabled.setVisible(false);
+        this.debuffButtonDisabled = scene.add.image(x - 5, y - 48, debuffBD).setOrigin(0);
+        this.debuffButtonDisabled.setVisible(false);
+        this.rangeButtonDisabled = scene.add.image(x + 27, y - 17, rangeBD).setOrigin(0);
+        this.rangeButtonDisabled.setVisible(false);
+        this.movingButtonDisabled = scene.add.image(x - 5, y + 12, movingBD).setOrigin(0);
+        this.movingButtonDisabled.setVisible(false);*/
 
         //this.buttons.add(this.buildButton);
         this.buttons.add(this);
-        this.buttons.add(this.basicButton);
-        this.buttons.add(this.basicButtonDisabled);
+        //this.buttons.add(this.basicButton);
+        //this.buttons.add(this.basicButtonDisabled);
     }
 
-    buildButton() {
+    /*buildButton() {
         if (!this.buildButtonClicked) {
-            this.buildButtonClicked = true;         //add conditions to see if player has enough currency to build tower
+            this.buildButtonClicked = true;
             if (this.scene.basicAfford == true) {
                 this.basicActive = true;
                 this.basicButtonDisabled.setVisible(false);
@@ -93,27 +130,56 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
             this.basicButton.setVisible(false);
             this.basicButton.enable = false;
         }
-    }
+    }*/
 
-    buildBasic() {
+    buildTower() {
         this.buildButtonClicked = false;
         this.buttons.setVisible(false);
         this.buttons.enable = false;
-        this.scene.currency -= 5;
 
-        const basic = new BasicShooter({scene: this.scene, x: this.x - 5, y: this.y + 7,});
-        basic.setDepth(2);
-        basic.setInteractive();
-        basic.on('pointerdown', () => { 
-            this.upgrades();
-        });
+        if () {
+            this.scene.currency -= 5;
+            const basic = new BasicShooter({scene: this.scene, x: this.x - 5, y: this.y + 7,});
+            basic.setDepth(2);
+            basic.setInteractive();
+            basic.on('pointerdown', () => { 
+                this.upgrades();
+            });
+        }
+        else if () {
+            this.scene.currency -= 6;
+            const basic = new DebuffShooter({scene: this.scene, x: this.x - 5, y: this.y + 7,});
+            basic.setDepth(2);
+            basic.setInteractive();
+            basic.on('pointerdown', () => { 
+                this.upgrades();
+            });
+        }
+        else if () {
+            this.scene.currency -= 7;
+            const basic = new RangeShooter({scene: this.scene, x: this.x - 5, y: this.y + 7,});
+            basic.setDepth(2);
+            basic.setInteractive();
+            basic.on('pointerdown', () => { 
+                this.upgrades();
+            });
+        }
+        else if () {
+            this.scene.currency -= 7;
+            const basic = new MovingShooter({scene: this.scene, x: this.x - 5, y: this.y + 7,});
+            basic.setDepth(2);
+            basic.setInteractive();
+            basic.on('pointerdown', () => { 
+                this.upgrades();
+            });
+        }
     }
 
     upgrades() {
         //add the upgrade option and delete option which will give the build button options back and refund some currency
     }
 
-    preUpdate() {
+    /*preUpdate() {
         if (this.buildButtonClicked && this.basicActive == false && this.scene.basicAfford == true) {
             this.basicActive = true;
             this.basicButtonDisabled.setVisible(false);
@@ -127,6 +193,6 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
             this.basicButton.setVisible(false);
             this.basicButton.enable = false;
         }
-    }
+    }*/
 
 }
