@@ -1,6 +1,7 @@
 import {FallingSpike} from "../gameobjects/fallingSpike.js";
 import {ButtonPlacement} from "../gameobjects/buttonPlacement.js";
 import {Monster} from "../gameobjects/monster.js";
+import { MonsterPathing } from "../gameobjects/monsterPathing.js";
 import {Spike} from "../gameobjects/spike.js";
 import {FallingPlatform} from "../gameobjects/fallingPlatform.js";
 import {BasicShooter} from "../gameobjects/basicShooter.js";
@@ -8,7 +9,6 @@ import {AppearingSpike} from "../gameobjects/appearingSpike.js";
 import {UI} from '../scenes/UI.js';
 import { Checkpoint } from "../gameobjects/checkpoint.js";
 import { AppearingPlatform } from "../gameobjects/appearigPlatform.js";
-
 
 export class Start extends Phaser.Scene {
 
@@ -42,6 +42,8 @@ export class Start extends Phaser.Scene {
         this.layer.setDepth(0);
         this.layer2.setDepth(0);
         this.layer3.setDepth(0);
+
+        this.monsterPath = new MonsterPathing(this, 224, 16);
 
         this.scene.launch('UI');            //we can change to our own later
         this.playerhp = 100;
