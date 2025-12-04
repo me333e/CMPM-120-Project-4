@@ -5,6 +5,7 @@ import {BasicShooter} from "../gameobjects/basicShooter.js";
 import {DebuffShooter} from "../gameobjects/debuffShooter.js";
 import {RangeShooter} from "../gameobjects/rangeShooter.js";
 import {MovingShooter} from "../gameobjects/movingShooter.js";
+import { Monster } from '../gameobjects/monster.js';
 import {UI} from '../scenes/UI.js';
 
 export class Start extends Phaser.Scene {
