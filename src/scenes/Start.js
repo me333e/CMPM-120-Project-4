@@ -1,14 +1,11 @@
-import {FallingSpike} from "../gameobjects/fallingSpike.js";
 import {ButtonPlacement} from "../gameobjects/buttonPlacement.js";
-import {Monster} from "../gameobjects/monster.js";
-import { MonsterPathing } from "../gameobjects/monsterPathing.js";
-import {Spike} from "../gameobjects/spike.js";
-import {FallingPlatform} from "../gameobjects/fallingPlatform.js";
-import {BasicShooter} from "../gameobjects/basicShooter.js";
-import {AppearingSpike} from "../gameobjects/appearingSpike.js";
-import {UI} from '../scenes/UI.js';
 import { TowerButtonPlacement } from "../gameobjects/towerButtonPlacement.js";
-import { AppearingPlatform } from "../gameobjects/appearigPlatform.js";
+import { MonsterPathing } from "../gameobjects/monsterPathing.js";
+import {BasicShooter} from "../gameobjects/basicShooter.js";
+import {DebuffShooter} from "../gameobjects/debuffShooter.js";
+import {RangeShooter} from "../gameobjects/rangeShooter.js";
+import {MovingShooter} from "../gameobjects/movingShooter.js";
+import {UI} from '../scenes/UI.js';
 
 export class Start extends Phaser.Scene {
 
