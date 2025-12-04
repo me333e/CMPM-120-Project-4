@@ -31,7 +31,7 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         });
         this.buildButtonClicked = false;
 
-        this.basicButton = scene.add.image(x - 36, y - 7, basicB).setOrigin(0);
+        this.basicButton = scene.add.image(x - 36, y - 17, basicB).setOrigin(0);
         this.basicButton.setInteractive();
         this.basicButton.setVisible(false);
         this.basicButton.enable = false;
@@ -39,7 +39,7 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
             this.buildBasic();
         });
 
-        this.basicButtonDisabled = scene.add.image(x - 36, y - 7, basicBD).setOrigin(0);
+        this.basicButtonDisabled = scene.add.image(x - 36, y - 17, basicBD).setOrigin(0);
         this.basicButtonDisabled.setVisible(false);
 
         //this.buttons.add(this.buildButton);
@@ -78,7 +78,7 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         this.buttons.enable = false;
         this.scene.currency -= 5;
 
-        const basic = new BasicShooter({scene: this.scene, x: this.x - 5, y: this.y + 12,});
+        const basic = new BasicShooter({scene: this.scene, x: this.x - 5, y: this.y + 7,});
         basic.setDepth(2);
         basic.setInteractive();
         basic.on('pointerdown', () => { 
