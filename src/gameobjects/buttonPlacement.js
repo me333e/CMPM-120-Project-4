@@ -12,15 +12,21 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
     {
         super(scene, x, y, 'buildButton');
         this.setOrigin(0, 1);
+        scene.add.existing(this);
         this.scene = scene;
         this.x = x;
         this.y = y;
+        this.basicActive = false;
 
         this.buttons = scene.add.group("buttons");
 
-        this.buildButton = scene.add.image(x, y, 'buildButton').setOrigin(0);
+        /*this.buildButton = scene.add.image(x, y, 'buildButton').setOrigin(0);
         this.buildButton.setInteractive();
         this.buildButton.on('pointerdown', () => { 
+            this.buildTower();
+        });*/
+        this.setInteractive();
+        this.on('pointerdown', () => { 
             this.buildTower();
         });
         this.buildButtonClicked = false;
@@ -36,7 +42,8 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         this.basicButtonDisabled = scene.add.image(x - 36, y - 7, basicBD).setOrigin(0);
         this.basicButtonDisabled.setVisible(false);
 
-        this.buttons.add(this.buildButton);
+        //this.buttons.add(this.buildButton);
+        this.buttons.add(this);
         this.buttons.add(this.basicButton);
         this.buttons.add(this.basicButtonDisabled);
     }
@@ -44,12 +51,14 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
     buildTower() {
         if (!this.buildButtonClicked) {
             this.buildButtonClicked = true;         //add conditions to see if player has enough currency to build tower
-            if (this.scene.basicAfford == true) {   //the basicAfford is not updated if the build button is left opened, should fix this
+            if (this.scene.basicAfford == true) {
+                this.basicActive = true;
                 this.basicButtonDisabled.setVisible(false);
                 this.basicButton.setVisible(true);
                 this.basicButton.enable = true;
             }
             else {
+                this.basicActive = false;
                 this.basicButtonDisabled.setVisible(true);
                 this.basicButton.setVisible(false);
                 this.basicButton.enable = false;
@@ -81,12 +90,20 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         //add the upgrade option and delete option which will give the build button options back and refund some currency
     }
 
-    /*
-      in build:
-         store which mode you are showing (disabled/active)
-      in preupdate:
-         if disabled and now has money: switch mode (hide disabled button, show active button)
-         and vice versa: if in active mode and now does not have money: switch mode (hide active button, show disabled button)
-    */
+    preUpdate() {
+        if (this.buildButtonClicked && this.basicActive == false && this.scene.basicAfford == true) {
+            this.basicActive = true;
+            this.basicButtonDisabled.setVisible(false);
+            this.basicButton.setVisible(true);
+            this.basicButton.enable = true;
+        }
+
+        if (this.buildButtonClicked && this.basicActive == true && this.scene.basicAfford == false) {
+            this.basicActive = false;
+            this.basicButtonDisabled.setVisible(true);
+            this.basicButton.setVisible(false);
+            this.basicButton.enable = false;
+        }
+    }
 
 }
