@@ -7,7 +7,7 @@ import {FallingPlatform} from "../gameobjects/fallingPlatform.js";
 import {BasicShooter} from "../gameobjects/basicShooter.js";
 import {AppearingSpike} from "../gameobjects/appearingSpike.js";
 import {UI} from '../scenes/UI.js';
-import { Checkpoint } from "../gameobjects/checkpoint.js";
+import { TowerButtonPlacement } from "../gameobjects/towerButtonPlacement.js";
 import { AppearingPlatform } from "../gameobjects/appearigPlatform.js";
 
 export class Start extends Phaser.Scene {
@@ -24,8 +24,33 @@ export class Start extends Phaser.Scene {
         this.load.image('buildButton', 'assets/buildButton.png');
         this.load.image('basicButton', 'assets/Fireball.png');
         this.load.image('basicButtonDisabled', 'assets/FireballDisabled.png');
+        this.load.image('debuffButton', 'assets/Snow.png');
+        this.load.image('debuffButtonDisabled', 'assets/SnowDisabled.png');
+        this.load.image('rangeButton', 'assets/Arrow.png');
+        this.load.image('rangeButtonDisabled', 'assets/ArrowDisabled.png');
+        this.load.image('movingButton', 'assets/Luck.png');
+        this.load.image('movingButtonDisabled', 'assets/LuckDisabled.png');
+        this.load.image('upgradeButton', 'assets/Upgrade.png');
+        this.load.image('upgradeButtonDisabled', 'assets/UpgradeDisabled.png');
+        this.load.image('deleteButton', 'assets/Downgrade.png');
+        this.load.image('deleteButtonDisabled', 'assets/DowngradeDisabled.png');
 
         this.load.spritesheet('basicShooter', 'assets/NovicePyromancer.png', {
+            frameWidth: 16,
+            frameHeight: 16,
+        });
+
+        this.load.spritesheet('debuffShooter', 'assets/DeftSorceress.png', {
+            frameWidth: 16,
+            frameHeight: 16,
+        });
+
+        this.load.spritesheet('rangeShooter', 'assets/HalflingRanger.png', {
+            frameWidth: 16,
+            frameHeight: 16,
+        });
+
+        this.load.spritesheet('movingShooter', 'assets/MagicalFairy.png', {
             frameWidth: 16,
             frameHeight: 16,
         });
@@ -54,8 +79,29 @@ export class Start extends Phaser.Scene {
         this.basicAfford = false;
 
         this.anims.create({
-            key: "idle",
+            key: "idleB",
             frames: this.anims.generateFrameNumbers('basicShooter', {start: 0, end: 3}),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: "idleD",
+            frames: this.anims.generateFrameNumbers('debuffShooter', {start: 0, end: 3}),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: "idleR",
+            frames: this.anims.generateFrameNumbers('rangeShooter', {start: 0, end: 3}),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: "idleM",
+            frames: this.anims.generateFrameNumbers('movingShooter', {start: 0, end: 3}),
             frameRate: 6,
             repeat: -1
         });

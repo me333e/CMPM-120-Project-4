@@ -1,4 +1,5 @@
 import {BasicShooter} from "../gameobjects/basicShooter.js";
+import { TowerButtonPlacement } from "../gameobjects/towerButtonPlacement.js";
 
 export class ButtonPlacement extends Phaser.GameObjects.Sprite {
     constructor({
@@ -13,23 +14,45 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         super(scene, x, y, 'buildButton');
         this.setOrigin(0, 1);
         scene.add.existing(this);
+        this.setInteractive();
         this.scene = scene;
         this.x = x;
         this.y = y;
         this.basicActive = false;
+        this.buildButtonClicked = false;
 
         this.buttons = scene.add.group("buttons");
 
-        /*this.buildButton = scene.add.image(x, y, 'buildButton').setOrigin(0);
+        /*
+        this.buildButton = scene.add.image(x, y, 'buildButton').setOrigin(0);
         this.buildButton.setInteractive();
         this.buildButton.on('pointerdown', () => { 
             this.buildTower();
-        });*/
-        this.setInteractive();
-        this.on('pointerdown', () => { 
-            this.buildTower();
         });
-        this.buildButtonClicked = false;
+        */
+        this.on('pointerdown', () => { 
+            this.buildButton();
+        });
+
+        /*
+        this.basicButton = scene.add.image(x - 36, y - 17, basicB).setOrigin(0);
+        this.debuffButton = scene.add.image(x - 5, y - 48, basicB).setOrigin(0);
+        this.rangeButton = scene.add.image(x + 27, y - 17, basicB).setOrigin(0);
+        this.movingButton = scene.add.image(x - 5, y + 12, basicB).setOrigin(0);
+        */
+
+        /*
+        .forEach((placement) => {
+            const {x, y} = placement;
+            const button = new ButtonPlacement({
+                scene: this, 
+                x: x + 400, 
+                y: y + 47, 
+                basicB: 'basicButton', 
+                basicBD: 'basicButtonDisabled'
+            });
+        });
+        */
 
         this.basicButton = scene.add.image(x - 36, y - 17, basicB).setOrigin(0);
         this.basicButton.setInteractive();
@@ -48,7 +71,7 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         this.buttons.add(this.basicButtonDisabled);
     }
 
-    buildTower() {
+    buildButton() {
         if (!this.buildButtonClicked) {
             this.buildButtonClicked = true;         //add conditions to see if player has enough currency to build tower
             if (this.scene.basicAfford == true) {
