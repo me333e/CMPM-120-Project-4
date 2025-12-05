@@ -45,6 +45,7 @@
             265, 265, 265, 265, 265, 265, 265, 265, 265, 265, 246, 265, 265, 265, 265, 265, 265, 246, 265, 265, 265, 265, 265, 265, 267, 265, 265, 265, 265, 265],
          "height":40,
          "id":2,
+         "locked":true,
          "name":"Grass",
          "opacity":1,
          "type":"tilelayer",
@@ -96,6 +97,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 177, 178, 178, 178, 201, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":40,
          "id":1,
+         "locked":true,
          "name":"Path",
          "opacity":1,
          "type":"tilelayer",
@@ -147,6 +149,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":40,
          "id":3,
+         "locked":true,
          "name":"TowerGround",
          "opacity":1,
          "type":"tilelayer",
@@ -158,6 +161,7 @@
         {
          "draworder":"topdown",
          "id":4,
+         "locked":true,
          "name":"buttonPlacements",
          "objects":[
                 {
@@ -249,9 +253,164 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":5,
+         "name":"Pathing",
+         "objects":[
+                {
+                 "gid":27,
+                 "height":16,
+                 "id":11,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"spawn",
+                         "type":"string",
+                         "value":"spawn"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":224,
+                 "y":16
+                }, 
+                {
+                 "gid":27,
+                 "height":16,
+                 "id":15,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"waypoint",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":265.506599537352,
+                 "y":87.6026670295278
+                }, 
+                {
+                 "gid":27,
+                 "height":16,
+                 "id":16,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"waypoint",
+                         "type":"int",
+                         "value":1
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":297.483739284256,
+                 "y":156.999863927065
+                }, 
+                {
+                 "gid":27,
+                 "height":16,
+                 "id":17,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"waypoint",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":263.465505510954,
+                 "y":236.602530956593
+                }, 
+                {
+                 "gid":27,
+                 "height":16,
+                 "id":19,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"waypoint",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":188.625391209688,
+                 "y":301.917539801334
+                }, 
+                {
+                 "gid":27,
+                 "height":16,
+                 "id":20,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"waypoint",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":202.913049394475,
+                 "y":382.880936181793
+                }, 
+                {
+                 "gid":27,
+                 "height":16,
+                 "id":22,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"waypoint",
+                         "type":"int",
+                         "value":5
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":251.218941352565,
+                 "y":517.593141924071
+                }, 
+                {
+                 "gid":27,
+                 "height":16,
+                 "id":23,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"waypoint",
+                         "type":"int",
+                         "value":6
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":224.004354333923,
+                 "y":640.739148183426
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":5,
- "nextobjectid":9,
+ "nextlayerid":6,
+ "nextobjectid":24,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

@@ -2,12 +2,13 @@
 export class Monster extends Phaser.GameObjects.Sprite {
     constructor({
         scene,
-        x = 0,
-        y = 0,
-        player,
-        enablePhysics = true,
-        addToScene = true,
-        name,
+        x = 0, // default x position
+        y = 0, // default y position
+        enablePhysics = true, // whether to enable physics
+        addToScene = true, // whether to add to scene
+        type, // optional type
+
+        // optional: add monster data from json like HP or speed
     }) 
     
     {

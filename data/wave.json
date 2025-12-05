@@ -1,0 +1,25 @@
+[
+    
+    { 
+        "waveNum": 1,
+        "slime" : 5,
+        "wolf" : 5
+    },
+
+    {
+        "waveNum": 2,
+        "slime" : 10,
+        "wolf" : 10
+    },
+
+    {
+        "waveNum": 3,
+        "slime" : 5,
+        "wolf" : 5,
+        "jerry" : 3,
+        "alina" : 3
+    }
+
+
+
+]

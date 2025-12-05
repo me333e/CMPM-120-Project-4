@@ -43,7 +43,7 @@ export class Start extends Phaser.Scene {
         this.layer2.setDepth(0);
         this.layer3.setDepth(0);
 
-        this.monsterPath = new MonsterPathing(this, 224, 16);
+        this.monsterPath = new MonsterPathing(this, 640, 16);
 
         this.scene.launch('UI');            //we can change to our own later
         this.playerhp = 100;
@@ -73,6 +73,53 @@ export class Start extends Phaser.Scene {
             });
             button.setDepth(1);
         });
+
+        // 1st: load object layer "Pathing"
+        // 2nd: go through all objects in that layer
+        // 3rd: check if object is spawnpoint or waypoint
+        // 4th: if waypoint: store to array of waypoints in order
+        // 5th: if spawnpoint: create or spawn monster at that object location
+
+        // step 1
+        var sp = this.map.getObjectLayer("Pathing"); // 
+        this.waypoints = [];
+
+        // step 2
+        sp.objects.forEach((point) => {
+
+            // step 3
+            if ( point.properties[0].name == "waypoint" ) { // waypoint
+
+                // step 4
+                this.waypoints.push ( new Phaser.Math.Vector2(point.x, point.y) );
+            } else {  // spawnpoint
+
+                // step 5
+                this.spawnPoint = new Phaser.Math.Vector2(point.x, point.y); // placeholder for spawning location
+            }
+
+        });
+
+     
+
+    }
+
+    newWave()
+    {
+        this.pending = 0; // number of pending obstacles to avoid counting ones already passed
+        for (let i = 0; i < 3; ++i){ // wave counter/loop
+            this.time.delayedCall(i * 2000, () => { // delayed spawning of enemies
+                const m = new Monster({
+                    scene: this,
+                    x: this.spawnPoint.x + 400,
+                    y: this.spawnPoint.y + 36,
+                    waypoints: this.waypoints
+
+                    // 3;30 to 4.30 meeting with professor on monday.
+
+            })
+        }
+
 
     }
 
