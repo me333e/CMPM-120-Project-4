@@ -1,14 +1,12 @@
-import {FallingSpike} from "../gameobjects/fallingSpike.js";
 import {ButtonPlacement} from "../gameobjects/buttonPlacement.js";
-import {Monster} from "../gameobjects/monster.js";
-import { MonsterPathing } from "../gameobjects/monsterPathing.js";
-import {Spike} from "../gameobjects/spike.js";
-import {FallingPlatform} from "../gameobjects/fallingPlatform.js";
+import {TowerButtonPlacement} from "../gameobjects/towerButtonPlacement.js";
+import {MonsterPathing} from "../gameobjects/monsterPathing.js";
 import {BasicShooter} from "../gameobjects/basicShooter.js";
-import {AppearingSpike} from "../gameobjects/appearingSpike.js";
+import {DebuffShooter} from "../gameobjects/debuffShooter.js";
+import {RangeShooter} from "../gameobjects/rangeShooter.js";
+import {MovingShooter} from "../gameobjects/movingShooter.js";
+import {Monster} from '../gameobjects/monster.js';
 import {UI} from '../scenes/UI.js';
-import { Checkpoint } from "../gameobjects/checkpoint.js";
-import { AppearingPlatform } from "../gameobjects/appearigPlatform.js";
 
 export class Start extends Phaser.Scene {
 
@@ -24,8 +22,33 @@ export class Start extends Phaser.Scene {
         this.load.image('buildButton', 'assets/buildButton.png');
         this.load.image('basicButton', 'assets/Fireball.png');
         this.load.image('basicButtonDisabled', 'assets/FireballDisabled.png');
+        this.load.image('debuffButton', 'assets/Snow.png');
+        this.load.image('debuffButtonDisabled', 'assets/SnowDisabled.png');
+        this.load.image('rangeButton', 'assets/Arrow.png');
+        this.load.image('rangeButtonDisabled', 'assets/ArrowDisabled.png');
+        this.load.image('movingButton', 'assets/Luck.png');
+        this.load.image('movingButtonDisabled', 'assets/LuckDisabled.png');
+        this.load.image('upgradeButton', 'assets/Upgrade.png');
+        this.load.image('upgradeButtonDisabled', 'assets/UpgradeDisabled.png');
+        this.load.image('deleteButton', 'assets/Downgrade.png');
+        this.load.image('deleteButtonDisabled', 'assets/DowngradeDisabled.png');
 
         this.load.spritesheet('basicShooter', 'assets/NovicePyromancer.png', {
+            frameWidth: 16,
+            frameHeight: 16,
+        });
+
+        this.load.spritesheet('debuffShooter', 'assets/DeftSorceress.png', {
+            frameWidth: 16,
+            frameHeight: 16,
+        });
+
+        this.load.spritesheet('rangeShooter', 'assets/HalflingRanger.png', {
+            frameWidth: 16,
+            frameHeight: 16,
+        });
+
+        this.load.spritesheet('movingShooter', 'assets/MagicalFairy.png', {
             frameWidth: 16,
             frameHeight: 16,
         });
@@ -52,10 +75,33 @@ export class Start extends Phaser.Scene {
         this.timer = 0;
 
         this.basicAfford = false;
+        this.debuffAfford = false;
+        this.rangeMovingAfford = false;
 
         this.anims.create({
-            key: "idle",
+            key: "idleB",
             frames: this.anims.generateFrameNumbers('basicShooter', {start: 0, end: 3}),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: "idleD",
+            frames: this.anims.generateFrameNumbers('debuffShooter', {start: 0, end: 3}),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: "idleR",
+            frames: this.anims.generateFrameNumbers('rangeShooter', {start: 0, end: 3}),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: "idleM",
+            frames: this.anims.generateFrameNumbers('movingShooter', {start: 0, end: 3}),
             frameRate: 6,
             repeat: -1
         });
@@ -67,9 +113,15 @@ export class Start extends Phaser.Scene {
             const button = new ButtonPlacement({
                 scene: this, 
                 x: x + 400, 
-                y: y + 36, 
+                y: y + 47, 
                 basicB: 'basicButton', 
-                basicBD: 'basicButtonDisabled'
+                basicBD: 'basicButtonDisabled',
+                debuffB: 'debuffButton',
+                debuffBD: 'debuffButtonDisabled',
+                rangeB: 'rangeButton',
+                rangeBD: 'rangeButtonDisabled',
+                movingB: 'movingButton',
+                movingBD: 'movingButtonDisabled'
             });
             button.setDepth(1);
         });
@@ -117,10 +169,9 @@ export class Start extends Phaser.Scene {
 
                     // 3;30 to 4.30 meeting with professor on monday.
 
-            })
+                });
+            });
         }
-
-
     }
 
     update(time, delta) {
@@ -131,11 +182,25 @@ export class Start extends Phaser.Scene {
             this.timer -= 1000;
         }
 
-        if (this.currency >= 5) {
+        if (this.currency >= 7) {
             this.basicAfford = true;
+            this.debuffAfford = true;
+            this.rangeMovingAfford = true;
+        }
+        else if (this.currency >= 6) {
+            this.basicAfford = true;
+            this.debuffAfford = true;
+            this.rangeMovingAfford = false;
+        }
+        else if (this.currency >= 5) {
+            this.basicAfford = true;
+            this.debuffAfford = false;
+            this.rangeMovingAfford = false;
         }
         else {
             this.basicAfford = false;
+            this.debuffAfford = false;
+            this.rangeMovingAfford = false;
         }
 
         this.events.emit('updateHP', this.playerhp);    //use when you want to update hp
