@@ -52,6 +52,9 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
                 afford: placement.afford
             });
             this.buttons.add(towerButton);
+            this.on('pointerdown', () => { 
+                towerButton.buildButton();
+            });
         });
 
         /*
@@ -61,9 +64,6 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
             this.buildTower();
         });
         */
-        this.on('pointerdown', () => { 
-            TowerButtonPlacement.buildButton();
-        });
 
         /*
         this.basicButton = scene.add.image(x - 36, y - 17, basicB).setOrigin(0);
