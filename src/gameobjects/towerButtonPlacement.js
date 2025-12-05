@@ -13,7 +13,7 @@ export class TowerButtonPlacement extends Phaser.GameObjects.Sprite {
     
     {
         super(scene, x, y, active);
-        this.setOrigin(0, 1);
+        this.setOrigin(0);
         scene.add.existing(this);
         this.setInteractive();
         this.setVisible(false);
@@ -30,6 +30,7 @@ export class TowerButtonPlacement extends Phaser.GameObjects.Sprite {
         this.buttonPlacement = buttonPlacement;
         this.on('pointerdown', () => { 
             this.buttonPlacement.buildTower(active);
+            //this.buildButtonClicked = false;
         });
     }
 
@@ -105,19 +106,17 @@ export class TowerButtonPlacement extends Phaser.GameObjects.Sprite {
     */
 
     preUpdate() {
-        if (this.buildButtonClicked && this.enable == false && this.afford == true) {
+        if (this.buildButtonClicked && this.enable == false && this.scene.afford[this.afford] == true) {
             this.buttonDisabled.setVisible(false);
             this.setVisible(true);
             this.enable = true;
         }
 
-        if (this.buildButtonClicked && this.enable == true && this.afford == false) {
+        if (this.buildButtonClicked && this.enable == true && this.scene.afford[this.afford] == false) {
             this.buttonDisabled.setVisible(true);
             this.setVisible(false);
             this.enable = false;
         }
-
-        console.log(this);
     }
 
 }
