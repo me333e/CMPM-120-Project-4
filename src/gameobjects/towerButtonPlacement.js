@@ -16,6 +16,9 @@ export class TowerButtonPlacement extends Phaser.GameObjects.Sprite {
         scene.add.existing(this)
         this.setInteractive();
         this.setVisible(false);
+        this.scene = scene;
+        this.x = x;
+        this.y = y;
         this.enable = false;
         this.afford = afford;
         this.buildButtonClicked = false;
@@ -24,7 +27,7 @@ export class TowerButtonPlacement extends Phaser.GameObjects.Sprite {
         this.buttonDisabled.setVisible(false);
 
         this.on('pointerdown', () => { 
-            ButtonPlacement.buildTower(active);
+            this.buildTower(active);
         });
     }
 
@@ -48,6 +51,53 @@ export class TowerButtonPlacement extends Phaser.GameObjects.Sprite {
             this.setVisible(false);
             this.enable = false;
         }
+    }
+
+    buildTower(which) {
+        this.buildButtonClicked = false;
+        this.setVisible(false);
+        this.enable = false;
+
+        if (which == 'basicButton') {
+            this.scene.currency -= 5;
+            const basic = new BasicShooter({scene: this.scene, x: this.x - 5, y: this.y + 7,});
+            basic.setDepth(2);
+            basic.setInteractive();
+            basic.on('pointerdown', () => { 
+                this.upgrades();
+            });
+        }
+        else if (which == 'debuffButton') {
+            this.scene.currency -= 6;
+            const basic = new DebuffShooter({scene: this.scene, x: this.x - 5, y: this.y + 7,});
+            basic.setDepth(2);
+            basic.setInteractive();
+            basic.on('pointerdown', () => { 
+                this.upgrades();
+            });
+        }
+        else if (which == 'rangeButton') {
+            this.scene.currency -= 7;
+            const basic = new RangeShooter({scene: this.scene, x: this.x - 5, y: this.y + 7,});
+            basic.setDepth(2);
+            basic.setInteractive();
+            basic.on('pointerdown', () => { 
+                this.upgrades();
+            });
+        }
+        else if (which == 'movingButton') {
+            this.scene.currency -= 7;
+            const basic = new MovingShooter({scene: this.scene, x: this.x - 5, y: this.y + 7,});
+            basic.setDepth(2);
+            basic.setInteractive();
+            basic.on('pointerdown', () => { 
+                this.upgrades();
+            });
+        }
+    }
+
+    upgrades() {
+        //add the upgrade option and delete option which will give the build button options back and refund some currency
     }
 
     preUpdate() {
