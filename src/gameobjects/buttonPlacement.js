@@ -49,7 +49,8 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
                 y: placement.y,
                 active: placement.active,
                 disabled: placement.disabled,
-                afford: placement.afford
+                afford: placement.afford,
+                buttonPlacement: this
             });
             this.buttons.add(towerButton);
 
@@ -133,7 +134,7 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         }
     }*/
 
-    /*
+    
     buildTower(which) {
         this.buildButtonClicked = false;
         this.buttons.setVisible(false);
@@ -180,7 +181,7 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
     upgrades() {
         //add the upgrade option and delete option which will give the build button options back and refund some currency
     }
-    */
+    
 
     /*preUpdate() {
         if (this.buildButtonClicked && this.basicActive == false && this.scene.basicAfford == true) {
