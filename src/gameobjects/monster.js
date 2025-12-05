@@ -1,17 +1,19 @@
 
 export class Monster extends Phaser.GameObjects.Sprite {
-    constructor({
-        scene,
-        x = 0,
-        y = 0
+    constructor({ // destructured params
+        scene, // Phaser scene
+        x = 0, // default x
+        y = 0, // default y
+        type // monster type
     }) 
     
     {
-        super(scene, x, y, '');
-        this.setOrigin(0, 1);
-        scene.add.existing(this);
+        super(scene, x, y, type, ''); // empty frame string
+        this.setOrigin(0, 1); // set origin to bottom-left
+        scene.add.existing(this); // add to scene
         //this.setScale(2);
-        this.play("");
+        this.play(""); // play walk animation
+        
 
     }
 }

@@ -33,6 +33,10 @@ export class Start extends Phaser.Scene {
         this.load.image('deleteButton', 'assets/Downgrade.png');
         this.load.image('deleteButtonDisabled', 'assets/DowngradeDisabled.png');
 
+        // JSON
+        this.load.json('spawns', 'data/spawns.json');
+        this.load.json('waves', 'data/waves.json');
+
         this.load.spritesheet('basicShooter', 'assets/NovicePyromancer.png', {
             frameWidth: 16,
             frameHeight: 16,
@@ -66,7 +70,6 @@ export class Start extends Phaser.Scene {
         this.layer2.setDepth(0);
         this.layer3.setDepth(0);
 
-        this.monsterPath = new MonsterPathing(this, 640, 16);
 
         this.scene.launch('UI');            //we can change to our own later
         this.playerhp = 100;
@@ -145,14 +148,17 @@ export class Start extends Phaser.Scene {
             if ( point.properties[0].name == "waypoint" ) { // waypoint
 
                 // step 4
-                this.waypoints.push ( new Phaser.Math.Vector2(point.x, point.y) );
+                this.waypoints.push ( new Phaser.Math.Vector2(point.x + 400, point.y + 36) );
             } else {  // spawnpoint
 
                 // step 5
-                this.spawnPoint = new Phaser.Math.Vector2(point.x, point.y); // placeholder for spawning location
+                this.spawnPoint = new Phaser.Math.Vector2(point.x + 400, point.y + 36); // placeholder for spawning location
             }
 
         });
+
+        this.waypoints.unshift(this.spawnPoint); // add spawn point as first waypoint
+        this.monsterPath = new MonsterPathing(this, this.waypoints);
 
      
 
@@ -163,11 +169,11 @@ export class Start extends Phaser.Scene {
         this.pending = 0; // number of pending obstacles to avoid counting ones already passed
         for (let i = 0; i < 3; ++i){ // wave counter/loop
             this.time.delayedCall(i * 2000, () => { // delayed spawning of enemies
-                const m = new Monster({
+                const m = new Monster({ 
                     scene: this,
-                    x: this.spawnPoint.x + 400,
-                    y: this.spawnPoint.y + 36,
-                    waypoints: this.waypoints
+                    x: this.spawnPoint.x + 400, // adjust for map offset
+                    y: this.spawnPoint.y + 36, // adjust for map offset
+                    type: 'slime'
 
                     // 3;30 to 4.30 meeting with professor on monday.
 

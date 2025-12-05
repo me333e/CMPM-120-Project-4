@@ -1,3 +1,17 @@
 [
+    {
+        "name": "slime",
+        "health": 20,
+        "speed": 5,
+        "money": 5
+    },
     
+    {
+        "name": "wolf",
+        "health": 10,
+        "speed": 10,
+        "money": 5
+    }
+
+          
 ]

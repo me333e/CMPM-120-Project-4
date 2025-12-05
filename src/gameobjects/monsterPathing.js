@@ -5,14 +5,9 @@
 import {Monster} from '../gameobjects/monster.js';
 
 export class MonsterPathing {
-    constructor(scene, startX, startY) {
+    constructor(scene, waypoints) {
         this.scene = scene;
-
-        // Define path points
-        this.points = [
-            new Phaser.Math.Vector2(startX, startY),
-            new Phaser.Math.Vector2(startX, startY+700)
-        ];
+        this.points = waypoints;
 
         // Create the curve
         this.curve = new Phaser.Curves.Spline(this.points);
