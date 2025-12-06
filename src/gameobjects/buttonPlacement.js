@@ -148,10 +148,6 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
             this.scene.currency -= 5;
             const basic = new BasicShooter({scene: this.scene, x: this.x - 5, y: this.y + 7,});
             basic.setDepth(2);
-            basic.setInteractive();
-            basic.on('pointerdown', () => { 
-                this.upgrades();
-            });
         }
         else if (which == 'debuffButton') {
             this.scene.currency -= 6;
@@ -181,12 +177,7 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
             });
         }
     }
-
-    upgrades() {
-        //add the upgrade option and delete option which will give the build button options back and refund some currency
-    }
     
-
     /*preUpdate() {
         if (this.buildButtonClicked && this.basicActive == false && this.scene.basicAfford == true) {
             this.basicActive = true;

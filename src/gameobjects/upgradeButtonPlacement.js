@@ -1,6 +1,5 @@
-import {ButtonPlacement} from "../gameobjects/buttonPlacement.js";
 
-export class TowerButtonPlacement extends Phaser.GameObjects.Sprite {
+export class UpgradeButtonPlacement extends Phaser.GameObjects.Sprite {
     constructor({
         scene,
         x = 0,
@@ -8,7 +7,7 @@ export class TowerButtonPlacement extends Phaser.GameObjects.Sprite {
         active,
         disabled,
         afford,
-        buttonPlacement
+        tower
     }) 
     
     {
@@ -22,20 +21,20 @@ export class TowerButtonPlacement extends Phaser.GameObjects.Sprite {
         this.y = y;
         this.enable = false;
         this.afford = afford;
-        this.buildButtonClicked = false;
+        this.towerClicked = false;
 
         this.buttonDisabled = scene.add.image(x, y, disabled).setOrigin(0);
         this.buttonDisabled.setVisible(false);
 
-        this.buttonPlacement = buttonPlacement;
+        this.tower = tower;
         this.on('pointerdown', () => { 
-            this.buttonPlacement.buildTower(active);
+            this.tower.upgrades();
         });
     }
 
-    buildButton() {
-        if (!this.buildButtonClicked) {
-            this.buildButtonClicked = true;
+    upgradeButton() {
+        if (!this.towerClicked) {
+            this.towerClicked = true;
             if (this.scene.afford[this.afford] == true) {
                 this.buttonDisabled.setVisible(false);
                 this.setVisible(true);
@@ -48,7 +47,7 @@ export class TowerButtonPlacement extends Phaser.GameObjects.Sprite {
             }
         }
         else {
-            this.buildButtonClicked = false;
+            this.towerClicked = false;
             this.buttonDisabled.setVisible(false);
             this.setVisible(false);
             this.enable = false;
@@ -56,13 +55,13 @@ export class TowerButtonPlacement extends Phaser.GameObjects.Sprite {
     }
 
     preUpdate() {
-        if (this.buildButtonClicked && this.enable == false && this.scene.afford[this.afford] == true) {
-            this.buttonDisabled.setVisible(false);
+        if (this.towerClicked && this.enable == false && this.scene.afford[this.afford] == true) {  //need to add price of upgrade and
+            this.buttonDisabled.setVisible(false);                                                  //delete button to the afford dictionary
             this.setVisible(true);
             this.enable = true;
         }
 
-        if (this.buildButtonClicked && this.enable == true && this.scene.afford[this.afford] == false) {
+        if (this.towerClicked && this.enable == true && this.scene.afford[this.afford] == false) {
             this.buttonDisabled.setVisible(true);
             this.setVisible(false);
             this.enable = false;
