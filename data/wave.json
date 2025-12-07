@@ -2,18 +2,21 @@
     
     { 
         "waveNum": 1,
+        "count": 10,
         "slime" : 5,
         "wolf" : 5
     },
 
     {
         "waveNum": 2,
+        "count": 20,
         "slime" : 10,
         "wolf" : 10
     },
 
     {
         "waveNum": 3,
+        "count": 30,
         "slime" : 5,
         "wolf" : 5,
         "jerry" : 3,

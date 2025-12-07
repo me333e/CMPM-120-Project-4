@@ -35,7 +35,7 @@ export class Start extends Phaser.Scene {
 
         // JSON
         this.load.json('spawns', 'data/spawns.json');
-        this.load.json('waves', 'data/waves.json');
+        this.load.json('waves', 'data/wave.json');
 
         this.load.spritesheet('basicShooter', 'assets/NovicePyromancer.png', {
             frameWidth: 16,
@@ -73,7 +73,7 @@ export class Start extends Phaser.Scene {
 
         this.scene.launch('UI');            //we can change to our own later
         this.playerhp = 100;
-        this.wave = 1;
+        this.wave = 0;
         this.currency = 0;
         this.timer = 0;
 
@@ -160,25 +160,31 @@ export class Start extends Phaser.Scene {
         this.waypoints.unshift(this.spawnPoint); // add spawn point as first waypoint
         this.monsterPath = new MonsterPathing(this, this.waypoints);
 
-     
+        this.enemyGroup = this.add.group();
 
     }
 
     newWave()
-    {
-        this.pending = 0; // number of pending obstacles to avoid counting ones already passed
-        for (let i = 0; i < 3; ++i){ // wave counter/loop
-            this.time.delayedCall(i * 2000, () => { // delayed spawning of enemies
-                const m = new Monster({ 
-                    scene: this,
-                    x: this.spawnPoint.x + 400, // adjust for map offset
-                    y: this.spawnPoint.y + 36, // adjust for map offset
-                    type: 'slime'
-
-                    // 3;30 to 4.30 meeting with professor on monday.
-
+    {   
+        //console.log("Starting wave " + this.wave); debug line
+        // wave data from json
+        const waveData  = this.cache.json.get('waves')[this.wave - 1]; 
+        let spawnIndex = 0;
+        for (const [type, count] of Object.entries(waveData)) { // iterate through each enemy type in the wave
+            if (["waveNum", "count"].includes(type)) continue; // skip non-enemy entries
+            for (let i = 0; i <count; ++i) {
+                this.time.delayedCall(spawnIndex * 1000, () => { // spawn each enemy with a delay
+                    console.log(`Spawning enemy of type: ${type}`); // debug line
+                    const monster = new Monster({
+                        scene: this,
+                        x: this.spawnPoint.x,
+                        y: this.spawnPoint.y,
+                        type: type // get type of enemy from wave
+                    });
+                    this.enemyGroup.add(monster);
                 });
-            });
+                spawnIndex++;
+            }
         }
     }
 
@@ -214,6 +220,12 @@ export class Start extends Phaser.Scene {
         this.events.emit('updateHP', this.playerhp);    //use when you want to update hp
         this.events.emit('updateWave', this.wave);      //use when you want to update wave number
 
+        // check wave end
+        if (this.enemyGroup.children.entries.length == 0) {
+            console.log("Wave " + this.wave + " ended."); // debug line
+            this.wave += 1;
+            this.newWave();
+        }
     }
 
     checkEndGame()      //prob should add if statment to check if player hp has hit 0 yet fo lose end game, we need to also make a win one
