@@ -32,6 +32,10 @@ export class Start extends Phaser.Scene {
         this.load.image('upgradeButtonDisabled', 'assets/UpgradeDisabled.png');
         this.load.image('deleteButton', 'assets/Downgrade.png');
         this.load.image('deleteButtonDisabled', 'assets/DowngradeDisabled.png');
+        this.load.image('rangeProj', 'assets/ArrowProj.png');
+        this.load.image('movingProj', 'assets/Shuriken.png');
+        this.load.image('debuffProj', 'assets/debuffProj.png');
+        this.load.image('basicProj', 'assets/basicProj.png');
 
         // JSON
         this.load.json('spawns', 'data/spawns.json');

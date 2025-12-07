@@ -23,6 +23,7 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
         this.attack_speed = 3000;
         this.bullet_speed = 200;
         this.damage = 2;
+        //this.bullet_asset = i need to send asset to the file;
         //this.angle = Phaser.Math.Angle.Between(enemy.x, enemy.y, x, y);
 
         this.circle = scene.add.circle(x + 13, y - 12, 100, 0x00ff00, 0.4);
@@ -85,7 +86,7 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
         this.scene.physics.world.overlap(this.circle, this.enemy, () => {
             if (this.last_attack + this.attack_speed < time){
                 this.last_attack = time;
-                let b = new Bullet(this.scene, this.x, this.y, this.angle, this.bullet_speed, this.damage);
+                let b = new Bullet(this.scene, this.x, this.y, this.angle, this.bullet_speed, this.damage, this.bullet_asset);
             }
         });
     }*/

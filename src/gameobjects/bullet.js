@@ -1,6 +1,6 @@
 export class Bullet extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, direction, speed, damage){
-         super(scene, x, y, 'upgradeButton');
+    constructor(scene, x, y, direction, speed, damage, asset){
+         super(scene, x, y, asset);
          scene.add.existing(this);
          scene.physics.add.existing(this);
          this.direction = Phaser.Math.DegToRad(direction);
