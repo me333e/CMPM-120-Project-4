@@ -15,6 +15,21 @@ export class DebuffShooter extends Phaser.GameObjects.Sprite {
         this.setScale(2);
         this.play("idleD");
 
+        this.circle = scene.add.circle(x + 13, y - 12, 100, 0x00ff00, 0.4);
+        this.circle.setVisible(false);
+        scene.physics.add.existing(this.circle);
+        this.seeCircle = false;
+        this.on('pointerdown', () => { 
+            if (!this.seeCircle) {
+                this.circle.setVisible(true);
+                this.seeCircle = true;
+            }
+            else {
+                this.circle.setVisible(false);
+                this.seeCircle = false;
+            }
+        });
+
         const upgradeActive = scene.textures.get('upgradeButton');
         const upgradeDisabled = scene.textures.get('upgradeButtonDisabled');
         const deleteActive = scene.textures.get('deleteButton');
@@ -23,8 +38,8 @@ export class DebuffShooter extends Phaser.GameObjects.Sprite {
         this.buttons = scene.add.group("buttons");
 
         const upgradeButtons = [
-            { active: upgradeActive, disabled: upgradeDisabled, x: x - 18, y: y - 55, afford: "basic" },
-            { active: deleteActive, disabled: deleteDisabled, x: x + 28, y: y - 55, afford: "basic" }
+            { active: upgradeActive, disabled: upgradeDisabled, x: x - 18, y: y - 65, afford: "basic", cost: '10' },
+            { active: deleteActive, disabled: deleteDisabled, x: x + 28, y: y - 65, afford: "basic", cost: '' }
         ];
 
         upgradeButtons.forEach((placement) => {
@@ -35,10 +50,12 @@ export class DebuffShooter extends Phaser.GameObjects.Sprite {
                 active: placement.active,
                 disabled: placement.disabled,
                 afford: placement.afford,
+                cost: placement.cost,
                 tower: this
             });
             this.buttons.add(upgradeButton);
             this.buttons.add(upgradeButton.buttonDisabled);
+            this.buttons.add(upgradeButton.cost);
 
             this.on('pointerdown', () => { 
                 upgradeButton.upgradeButton();

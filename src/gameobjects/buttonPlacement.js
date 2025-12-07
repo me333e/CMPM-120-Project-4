@@ -35,10 +35,10 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         this.buttons = scene.add.group("buttons");
 
         const towerButtons = [
-            { active: basicB, disabled: basicBD, x: x - 36, y: y - 17, afford: "basic" },
-            { active: debuffB, disabled: debuffBD, x: x - 5, y: y - 48, afford: "debuff" },
-            { active: rangeB, disabled: rangeBD, x: x + 27, y: y - 17, afford: "rangeMoving" },
-            { active: movingB, disabled: movingBD, x: x - 5, y: y + 12, afford: "rangeMoving" },
+            { active: basicB, disabled: basicBD, x: x - 36, y: y - 17, afford: "basic", cost: '5' },
+            { active: debuffB, disabled: debuffBD, x: x - 5, y: y - 48, afford: "debuff", cost: '6' },
+            { active: rangeB, disabled: rangeBD, x: x + 27, y: y - 17, afford: "rangeMoving", cost: '7' },
+            { active: movingB, disabled: movingBD, x: x - 5, y: y + 12, afford: "rangeMoving", cost: '7' },
         ];
 
         towerButtons.forEach((placement) => {
@@ -49,10 +49,12 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
                 active: placement.active,
                 disabled: placement.disabled,
                 afford: placement.afford,
+                cost: placement.cost,
                 buttonPlacement: this
             });
             this.buttons.add(towerButton);
             this.buttons.add(towerButton.buttonDisabled);
+            this.buttons.add(towerButton.cost);
 
             this.on('pointerdown', () => { 
                 towerButton.buildButton();

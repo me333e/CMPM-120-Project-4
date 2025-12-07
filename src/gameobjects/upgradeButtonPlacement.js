@@ -7,6 +7,7 @@ export class UpgradeButtonPlacement extends Phaser.GameObjects.Sprite {
         active,
         disabled,
         afford,
+        cost,
         tower
     }) 
     
@@ -25,6 +26,12 @@ export class UpgradeButtonPlacement extends Phaser.GameObjects.Sprite {
 
         this.buttonDisabled = scene.add.image(x, y, disabled).setOrigin(0);
         this.buttonDisabled.setVisible(false);
+        this.cost = scene.add.text(x + 18, y + 15, cost, {
+            fontSize: '16px',
+            fill: '#000000ff',
+            strokeThickness: 2
+        });
+        this.cost.setVisible(false);
 
         this.tower = tower;
         this.on('pointerdown', () => { 
@@ -35,6 +42,7 @@ export class UpgradeButtonPlacement extends Phaser.GameObjects.Sprite {
     upgradeButton() {
         if (!this.towerClicked) {
             this.towerClicked = true;
+            this.cost.setVisible(true);
             if (this.scene.afford[this.afford] == true) {
                 this.buttonDisabled.setVisible(false);
                 this.setVisible(true);
@@ -51,6 +59,7 @@ export class UpgradeButtonPlacement extends Phaser.GameObjects.Sprite {
             this.buttonDisabled.setVisible(false);
             this.setVisible(false);
             this.enable = false;
+            this.cost.setVisible(false);
         }
     }
 

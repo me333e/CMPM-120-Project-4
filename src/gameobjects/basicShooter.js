@@ -48,8 +48,8 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
         this.buttons = scene.add.group("buttons");
 
         const upgradeButtons = [
-            { active: upgradeActive, disabled: upgradeDisabled, x: x - 22, y: y - 55, afford: "basic" },
-            { active: deleteActive, disabled: deleteDisabled, x: x + 24, y: y - 55, afford: "basic" }
+            { active: upgradeActive, disabled: upgradeDisabled, x: x - 22, y: y - 65, afford: "basic", cost: '10' },
+            { active: deleteActive, disabled: deleteDisabled, x: x + 24, y: y - 65, afford: "basic", cost: '' }
         ];
 
         upgradeButtons.forEach((placement) => {
@@ -60,10 +60,12 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
                 active: placement.active,
                 disabled: placement.disabled,
                 afford: placement.afford,
+                cost: placement.cost,
                 tower: this
             });
             this.buttons.add(upgradeButton);
             this.buttons.add(upgradeButton.buttonDisabled);
+            this.buttons.add(upgradeButton.cost);
 
             this.on('pointerdown', () => { 
                 upgradeButton.upgradeButton();
