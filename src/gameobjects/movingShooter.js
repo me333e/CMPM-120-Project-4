@@ -15,6 +15,19 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
         this.setScale(2);
         this.play("idleM");
 
+        scene.tweens.add({
+            targets: this,
+            angle: { from: 90, to: 90 - 360 },
+            duration: 4000,
+            ease: 'Linear',
+            repeat: -1,
+            onUpdate: function (tween, target) {
+                let currentAngleRad = Phaser.Math.DegToRad(target.angle);
+                target.x = (x + 13) + 50 * Math.cos(currentAngleRad);
+                target.y = (y - 12) + 50 * Math.sin(currentAngleRad);
+            }
+        });
+
         this.circle = scene.add.circle(x + 13, y - 12, 100, 0x00ff00, 0.4);
         this.circle.setVisible(false);
         scene.physics.add.existing(this.circle);
