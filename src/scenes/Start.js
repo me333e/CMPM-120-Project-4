@@ -86,7 +86,7 @@ export class Start extends Phaser.Scene {
         //this.debuffAfford = false;
         //this.rangeMovingAfford = false;
 
-        this.afford = {"basic": false, "debuff": false, "rangeMoving": false};
+        this.afford = {"basic": false, "debuff": false, "rangeMoving": false, "upgrade": false, "delete": true};
 
         this.anims.create({
             key: "idleB",
@@ -213,25 +213,35 @@ export class Start extends Phaser.Scene {
             this.timer -= 1000;
         }
 
-        if (this.currency >= 7) {
+        if (this.currency >= 10) {
             this.afford["basic"] = true;
             this.afford["debuff"] = true;
             this.afford["rangeMoving"] = true;
+            this.afford["upgrade"] = true;
+        }
+        else if (this.currency >= 7) {
+            this.afford["basic"] = true;
+            this.afford["debuff"] = true;
+            this.afford["rangeMoving"] = true;
+            this.afford["upgrade"] = false;
         }
         else if (this.currency >= 6) {
             this.afford["basic"] = true;
             this.afford["debuff"] = true;
             this.afford["rangeMoving"] = false;
+            this.afford["upgrade"] = false;
         }
         else if (this.currency >= 5) {
             this.afford["basic"] = true;
             this.afford["debuff"] = false;
             this.afford["rangeMoving"] = false;
+            this.afford["upgrade"] = false;
         }
         else {
             this.afford["basic"] = false;
             this.afford["debuff"] = false;
             this.afford["rangeMoving"] = false;
+            this.afford["upgrade"] = false;
         }
 
         this.events.emit('updateHP', this.playerhp);    //use when you want to update hp

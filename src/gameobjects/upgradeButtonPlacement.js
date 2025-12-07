@@ -64,8 +64,8 @@ export class UpgradeButtonPlacement extends Phaser.GameObjects.Sprite {
     }
 
     preUpdate() {
-        if (this.towerClicked && this.enable == false && this.scene.afford[this.afford] == true) {  //need to add price of upgrade and
-            this.buttonDisabled.setVisible(false);                                                  //delete button to the afford dictionary
+        if (this.towerClicked && this.enable == false && this.scene.afford[this.afford] == true) {
+            this.buttonDisabled.setVisible(false);
             this.setVisible(true);
             this.enable = true;
         }
