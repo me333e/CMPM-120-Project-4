@@ -12,7 +12,10 @@ export class Monster extends Phaser.GameObjects.Sprite {
         this.setOrigin(0, 1); // set origin to bottom-left
         scene.add.existing(this); // add to scene
         //this.setScale(2);
-        this.play(""); // play walk animation
+
+        if (type === 'slime') {
+            this.play("slimeWalk"); // play walk animation
+        }
         
 
     }

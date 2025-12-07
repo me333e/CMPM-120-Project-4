@@ -2,10 +2,11 @@
 
 // enemy pathing logic for monsters
 
-import {Monster} from '../gameobjects/monster.js';
+import { Monster } from '../gameobjects/monster.js';
 
 export class MonsterPathing {
-    constructor(scene, waypoints) {
+    constructor(scene, waypoints, monster) {
+        this.monster = monster;
         this.scene = scene;
         this.points = waypoints;
 
@@ -18,7 +19,12 @@ export class MonsterPathing {
         this.curve.draw(this.graphics, 64);
 
         // Place the monster at the start of the path
-        this.monster = scene.add.circle(this.points[0].x, this.points[0].y, 12, 0xff0000);
+        // this.monster = scene.add.circle(this.points[0].x, this.points[0].y, 12, 0xff0000);
+        if (this.monster) {
+            this.monster.x = this.points[0].x;
+            this.monster.y = this.points[0].y;
+        }
+         
 
         // Path progress
         this.path = { t: 0, vec: new Phaser.Math.Vector2() };
@@ -31,8 +37,12 @@ export class MonsterPathing {
             duration: 4000,
             yoyo: false,
             repeat: 0,
-            onUpdate: () => {
+            onUpdate: () => { // update monster position
                 this.curve.getPoint(this.path.t, this.path.vec);
+                if (!this.monster) {
+                    console.warn('MonsterPathing: No monster to move along the path.');
+                    return;
+                }
                 this.monster.x = this.path.vec.x;
                 this.monster.y = this.path.vec.y;
             }

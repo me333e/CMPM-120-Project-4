@@ -57,6 +57,11 @@ export class Start extends Phaser.Scene {
             frameHeight: 16,
         });
 
+        this.load.spritesheet('slime', 'assets/SlimeWalk.png', {
+            frameWidth: 16,
+            frameHeight: 16,
+        });
+
     }
 
     create() {
@@ -110,6 +115,14 @@ export class Start extends Phaser.Scene {
             frameRate: 6,
             repeat: -1
         });
+
+        this.anims.create({
+            key: "slimeWalk",
+            frames: this.anims.generateFrameNumbers('slime', {start: 0, end: 5}),
+            frameRate: 6,
+            repeat: -1
+        });
+
 
         var bp = this.map.getObjectLayer('buttonPlacements');
 
@@ -181,7 +194,11 @@ export class Start extends Phaser.Scene {
                         y: this.spawnPoint.y,
                         type: type // get type of enemy from wave
                     });
+                    //console.log("Spawning enemy at " + this.spawnPoint.x + ", " + this.spawnPoint.y), // debug line
+                    console.log("Monster instance: ", monster); // debug line
                     this.enemyGroup.add(monster);
+                    new MonsterPathing(this, this.waypoints, monster);
+
                 });
                 spawnIndex++;
             }
