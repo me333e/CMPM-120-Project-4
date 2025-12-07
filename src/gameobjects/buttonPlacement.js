@@ -31,7 +31,6 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         this.debuffActive = false;
         this.rangeActive = false;
         this.movingActive = false;
-        //this.buildButtonClicked = false;
 
         this.buttons = scene.add.group("buttons");
 
@@ -61,81 +60,7 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
         });
 
         this.buttons.add(this);
-
-        /*
-        this.buildButton = scene.add.image(x, y, 'buildButton').setOrigin(0);
-        this.buildButton.setInteractive();
-        this.buildButton.on('pointerdown', () => { 
-            this.buildTower();
-        });
-        */
-
-        /*
-        this.basicButton = scene.add.image(x - 36, y - 17, basicB).setOrigin(0);
-        this.debuffButton = scene.add.image(x - 5, y - 48, debuffB).setOrigin(0);
-        this.rangeButton = scene.add.image(x + 27, y - 17, rangeB).setOrigin(0);
-        this.movingButton = scene.add.image(x - 5, y + 12, movingB).setOrigin(0);
-        */
-
-        /*
-        .forEach((placement) => {
-            const {x, y} = placement;
-            const button = new ButtonPlacement({
-                scene: this, 
-                x: x + 400, 
-                y: y + 47, 
-                basicB: 'basicButton', 
-                basicBD: 'basicButtonDisabled'
-            });
-        });
-        */
-
-        /*this.basicButton = scene.add.image(x - 36, y - 17, basicB).setOrigin(0);
-        this.basicButton.setInteractive();
-        this.basicButton.setVisible(false);
-        this.basicButton.enable = false;
-        this.basicButton.on('pointerdown', () => { 
-            this.buildBasic();
-        });*/
-
-       /* this.basicButtonDisabled = scene.add.image(x - 36, y - 17, basicBD).setOrigin(0);
-        this.basicButtonDisabled.setVisible(false);
-        this.debuffButtonDisabled = scene.add.image(x - 5, y - 48, debuffBD).setOrigin(0);
-        this.debuffButtonDisabled.setVisible(false);
-        this.rangeButtonDisabled = scene.add.image(x + 27, y - 17, rangeBD).setOrigin(0);
-        this.rangeButtonDisabled.setVisible(false);
-        this.movingButtonDisabled = scene.add.image(x - 5, y + 12, movingBD).setOrigin(0);
-        this.movingButtonDisabled.setVisible(false);*/
-
-        //this.buttons.add(this.buildButton);
-        //this.buttons.add(this.basicButton);
-        //this.buttons.add(this.basicButtonDisabled);
     }
-
-    /*buildButton() {
-        if (!this.buildButtonClicked) {
-            this.buildButtonClicked = true;
-            if (this.scene.basicAfford == true) {
-                this.basicActive = true;
-                this.basicButtonDisabled.setVisible(false);
-                this.basicButton.setVisible(true);
-                this.basicButton.enable = true;
-            }
-            else {
-                this.basicActive = false;
-                this.basicButtonDisabled.setVisible(true);
-                this.basicButton.setVisible(false);
-                this.basicButton.enable = false;
-            }
-        }
-        else {
-            this.buildButtonClicked = false;
-            this.basicButtonDisabled.setVisible(false);
-            this.basicButton.setVisible(false);
-            this.basicButton.enable = false;
-        }
-    }*/
-
     
     buildTower(which) {
         this.buttons.children.iterate((button) => {
@@ -177,21 +102,5 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
             });
         }
     }
-    
-    /*preUpdate() {
-        if (this.buildButtonClicked && this.basicActive == false && this.scene.basicAfford == true) {
-            this.basicActive = true;
-            this.basicButtonDisabled.setVisible(false);
-            this.basicButton.setVisible(true);
-            this.basicButton.enable = true;
-        }
-
-        if (this.buildButtonClicked && this.basicActive == true && this.scene.basicAfford == false) {
-            this.basicActive = false;
-            this.basicButtonDisabled.setVisible(true);
-            this.basicButton.setVisible(false);
-            this.basicButton.enable = false;
-        }
-    }*/
 
 }
