@@ -1,7 +1,4 @@
 // enemy pathing logic for monsters
-
-// enemy pathing logic for monsters
-
 import { Monster } from '../gameobjects/monster.js';
 
 export class MonsterPathing {
@@ -28,6 +25,7 @@ export class MonsterPathing {
 
         // Path progress
         this.path = { t: 0, vec: new Phaser.Math.Vector2() };
+        console.log("MonsterPathing constructor " + this.monster);
 
         // Tween to move monster along the path
         scene.tweens.add({
@@ -49,3 +47,5 @@ export class MonsterPathing {
         });
     }
 }
+
+    

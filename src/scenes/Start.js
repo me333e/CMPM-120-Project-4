@@ -62,8 +62,8 @@ export class Start extends Phaser.Scene {
         });
 
         this.load.spritesheet('slime', 'assets/SlimeWalk.png', {
-            frameWidth: 16,
-            frameHeight: 16,
+            frameWidth: 48,
+            frameHeight: 48,
         });
 
     }
@@ -175,8 +175,6 @@ export class Start extends Phaser.Scene {
         });
 
         this.waypoints.unshift(this.spawnPoint); // add spawn point as first waypoint
-        this.monsterPath = new MonsterPathing(this, this.waypoints);
-
         this.enemyGroup = this.add.group();
 
     }
