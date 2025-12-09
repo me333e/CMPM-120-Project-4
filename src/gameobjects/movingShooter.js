@@ -10,7 +10,7 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
     
     {
         super(scene, x, y, 'movingShooter');
-        this.setOrigin(0, 1);
+        //this.setOrigin(0, 1);
         scene.add.existing(this);
         this.setInteractive();
         this.setScale(2);
@@ -26,7 +26,7 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
         this.bullet_speed = 200;
         this.damage = 2;
 
-        this.circle = scene.add.circle(x + 13, y - 12, 120, 0x00ff00, 0.4);
+        this.circle = scene.add.circle(x + 13, y - 12, 115, 0x00ff00, 0.35);
         this.circle.setVisible(false);
         scene.physics.add.existing(this.circle);
         this.seeCircle = false;
@@ -49,8 +49,8 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
             repeat: -1,
             onUpdate: function (tween, target) {
                 let currentAngleRad = Phaser.Math.DegToRad(target.angle);
-                target.x = (x + 13) + 50 * Math.cos(currentAngleRad);
-                target.y = (y - 12) + 50 * Math.sin(currentAngleRad);
+                target.x = (x + 13) + 70 * Math.cos(currentAngleRad);
+                target.y = (y - 12) + 70 * Math.sin(currentAngleRad);
             }
         });
 

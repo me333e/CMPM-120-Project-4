@@ -21,7 +21,7 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
         this.x = x;
         this.y = y;
         this.button = button;
-        
+
         this.last_attack = 0;
         this.attack_speed = 3000;
         this.bullet_speed = 200;
@@ -29,7 +29,7 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
         //this.bullet_asset = i need to send asset to the file;
         //this.angle = Phaser.Math.Angle.Between(enemy.x, enemy.y, x, y);
 
-        this.circle = scene.add.circle(x + 13, y - 12, 100, 0x00ff00, 0.4);
+        this.circle = scene.add.circle(x + 13, y - 12, 100, 0x00ff00, 0.35);
         this.circle.setVisible(false);
         scene.physics.add.existing(this.circle);
         this.seeCircle = false;

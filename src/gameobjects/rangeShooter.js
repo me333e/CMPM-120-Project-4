@@ -26,7 +26,7 @@ export class RangeShooter extends Phaser.GameObjects.Sprite {
         this.bullet_speed = 200;
         this.damage = 2;
 
-        this.circle = scene.add.circle(x + 13, y - 12, 200, 0x00ff00, 0.4);
+        this.circle = scene.add.circle(x + 13, y - 12, 200, 0x00ff00, 0.35);
         this.circle.setVisible(false);
         scene.physics.add.existing(this.circle);
         this.seeCircle = false;
