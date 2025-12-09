@@ -5,7 +5,8 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
     constructor({
         scene,
         x = 0,
-        y = 0
+        y = 0,
+        button
     }) 
     
     {
@@ -19,6 +20,8 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
         this.scene = scene;
         this.x = x;
         this.y = y;
+        this.button = button;
+        
         this.last_attack = 0;
         this.attack_speed = 3000;
         this.bullet_speed = 200;
@@ -77,9 +80,24 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
 
     }
 
-    upgrades() {
-        //add the upgrade option and delete option which will give the build button options back and refund some currency
+    upgrades(which) {
+        if (which.key == 'upgradeButton') {
+            this.scene.currency -= 10;
+            this.attack_speed = 5000;
+        }
+        else if (which.key == 'deleteButton') {
+            this.scene.currency += 2;
+            this.button.rebuildTower();
 
+            this.circle.setVisible(false);
+            this.seeCircle = false;
+            this.buttons.children.iterate((button) => {
+                button.towerClicked = false;
+            });
+            this.buttons.setVisible(false);
+            this.buttons.enable = false;
+            this.destroy();
+        }
     }
 
     /*preUpdate(time) {

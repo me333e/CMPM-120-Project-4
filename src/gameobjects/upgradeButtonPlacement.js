@@ -35,7 +35,7 @@ export class UpgradeButtonPlacement extends Phaser.GameObjects.Sprite {
 
         this.tower = tower;
         this.on('pointerdown', () => { 
-            this.tower.upgrades();
+            this.tower.upgrades(active);
         });
     }
 

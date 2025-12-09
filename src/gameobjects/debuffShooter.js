@@ -4,7 +4,8 @@ export class DebuffShooter extends Phaser.GameObjects.Sprite {
     constructor({
         scene,
         x = 0,
-        y = 0
+        y = 0,
+        button
     }) 
     
     {
@@ -14,6 +15,16 @@ export class DebuffShooter extends Phaser.GameObjects.Sprite {
         this.setInteractive();
         this.setScale(2);
         this.play("idleD");
+
+        this.scene = scene;
+        this.x = x;
+        this.y = y;
+        this.button = button;
+
+        this.last_attack = 0;
+        this.attack_speed = 3000;
+        this.bullet_speed = 200;
+        this.damage = 2;
 
         this.circle = scene.add.circle(x + 13, y - 12, 100, 0x00ff00, 0.4);
         this.circle.setVisible(false);
@@ -65,8 +76,23 @@ export class DebuffShooter extends Phaser.GameObjects.Sprite {
         this.buttons.add(this);
     }
 
-    upgrades() {
-        //add the upgrade option and delete option which will give the build button options back and refund some currency
+    upgrades(which) {
+        if (which.key == 'upgradeButton') {
+            this.scene.currency -= 10;
+            //make enemies freeze or slow down more
+        }
+        else if (which.key == 'deleteButton') {
+            this.scene.currency += 2;
+            this.button.rebuildTower();
 
+            this.circle.setVisible(false);
+            this.seeCircle = false;
+            this.buttons.children.iterate((button) => {
+                button.towerClicked = false;
+            });
+            this.buttons.setVisible(false);
+            this.buttons.enable = false;
+            this.destroy();
+        }
     }
 }

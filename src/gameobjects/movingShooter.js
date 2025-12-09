@@ -4,7 +4,8 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
     constructor({
         scene,
         x = 0,
-        y = 0
+        y = 0,
+        button
     }) 
     
     {
@@ -15,20 +16,17 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
         this.setScale(2);
         this.play("idleM");
 
-        scene.tweens.add({
-            targets: this,
-            angle: { from: 90, to: 90 - 360 },
-            duration: 4000,
-            ease: 'Linear',
-            repeat: -1,
-            onUpdate: function (tween, target) {
-                let currentAngleRad = Phaser.Math.DegToRad(target.angle);
-                target.x = (x + 13) + 50 * Math.cos(currentAngleRad);
-                target.y = (y - 12) + 50 * Math.sin(currentAngleRad);
-            }
-        });
+        this.scene = scene;
+        this.x = x;
+        this.y = y;
+        this.button = button;
 
-        this.circle = scene.add.circle(x + 13, y - 12, 100, 0x00ff00, 0.4);
+        this.last_attack = 0;
+        this.attack_speed = 3000;
+        this.bullet_speed = 200;
+        this.damage = 2;
+
+        this.circle = scene.add.circle(x + 13, y - 12, 120, 0x00ff00, 0.4);
         this.circle.setVisible(false);
         scene.physics.add.existing(this.circle);
         this.seeCircle = false;
@@ -40,6 +38,19 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
             else {
                 this.circle.setVisible(false);
                 this.seeCircle = false;
+            }
+        });
+
+        scene.tweens.add({
+            targets: [this, this.circle],
+            angle: { from: 90, to: 90 - 360 },
+            duration: 4000,
+            ease: 'Linear',
+            repeat: -1,
+            onUpdate: function (tween, target) {
+                let currentAngleRad = Phaser.Math.DegToRad(target.angle);
+                target.x = (x + 13) + 50 * Math.cos(currentAngleRad);
+                target.y = (y - 12) + 50 * Math.sin(currentAngleRad);
             }
         });
 
@@ -78,8 +89,23 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
         this.buttons.add(this);
     }
 
-    upgrades() {
-        //add the upgrade option and delete option which will give the build button options back and refund some currency
+    upgrades(which) {
+        if (which.key == 'upgradeButton') {
+            this.scene.currency -= 10;
+            //remember this one shoots in multiple directions and the upgrade will basically add more directions
+        }
+        else if (which.key == 'deleteButton') {
+            this.scene.currency += 2;
+            this.button.rebuildTower();
 
+            this.circle.setVisible(false);
+            this.seeCircle = false;
+            this.buttons.children.iterate((button) => {
+                button.towerClicked = false;
+            });
+            this.buttons.setVisible(false);
+            this.buttons.enable = false;
+            this.destroy();
+        }
     }
 }
