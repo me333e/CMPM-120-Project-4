@@ -5,8 +5,8 @@ export class HealthBar {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.value = 100;
-        this.max = 100;
+        this.value = 10;
+        this.max = 10;
         this.draw();
     }
 
@@ -26,7 +26,11 @@ export class HealthBar {
         this.bar.clear();
         this.bar.fillStyle(0x000000);
         this.bar.fillRect(this.x, this.y, this.width, this.height);
-        let color = (this.value < 30) ? 0xff0000 : 0x00ff00;
+
+        // determine color based on health percentage
+        let percent = this.value / this.max;
+        let color = (percent < 0.3) ? 0xff0000 : 0x00ff00;
+
         this.bar.fillStyle(color);
         let w = Math.floor((this.value / this.max) * (this.width - 2));
         this.bar.fillRect(this.x + 1, this.y + 1, w, this.height - 2);

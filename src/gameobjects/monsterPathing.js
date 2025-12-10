@@ -26,10 +26,10 @@ export class MonsterPathing {
       
         var speedFactor; // speed based on type
         if (this.type === 'slime') {
-            speedFactor = 50; // 50 for slime, 300 for debug
+            speedFactor = 25; // 50 for slime, 300 for debug
         } else if (this.type === 'wolf') {
             // console.log("Setting speed for wolf"); debug line
-            speedFactor = 100; // 100 for wolf, 400 for debug
+            speedFactor = 50; // 100 for wolf, 400 for debug
         }
 
         const pathLength = this.curve.getLength();
@@ -56,15 +56,17 @@ export class MonsterPathing {
                 this.monster.y = this.path.vec.y;
             },
             onComplete: () => { // destroy monster at end of path
-                if (this.monster) {
+                if (this.monster && this.monster.active) {
                     this.monster.destroy();
                     if (this.scene.enemyGroup) { // remove from enemy group
                         this.scene.enemyGroup.remove(this.monster, true, true);
                     }
+                    if (this.scene.playerhp !== undefined) {
+                        console.log('Monster reached the end of the path. Reducing player HP.'); // debug line
+                        this.scene.playerhp -= 1; // reduce player HP
+                    }
                 }
-                if (this.scene.playerhp !== undefined) {
-                    this.scene.playerhp -= 1; // reduce player HP
-                }
+        
             }
         });
     }

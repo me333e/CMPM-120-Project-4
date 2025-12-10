@@ -16,11 +16,9 @@
 
     {
         "waveNum": 3,
-        "count": 16,
+        "count": 10,
         "slime" : 5,
-        "wolf" : 5,
-        "jerry" : 3,
-        "alina" : 3
+        "wolf" : 5
     }
 
 

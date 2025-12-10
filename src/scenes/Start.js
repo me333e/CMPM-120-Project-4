@@ -38,7 +38,7 @@ export class Start extends Phaser.Scene {
         this.load.image('basicProj', 'assets/basicProj.png');
 
         // JSON
-        this.load.json('spawns', 'data/spawns.json');
+        this.load.json('enemies', 'data/enemies.json');        
         this.load.json('waves', 'data/wave.json');
 
         this.load.spritesheet('basicShooter', 'assets/NovicePyromancer.png', {
@@ -71,6 +71,13 @@ export class Start extends Phaser.Scene {
             frameHeight: 48,
         });
 
+    }
+
+    bulletHitEnemy(bullet, monster) {
+        if (monster.active && bullet.active) {
+            monster.takeDamage(bullet.damage);
+            bullet.destroy();
+        }
     }
 
     create() {
@@ -159,6 +166,7 @@ export class Start extends Phaser.Scene {
             button.setDepth(1);
         });
 
+        // setup physics overlap
         // 1st: load object layer "Pathing"
         // 2nd: go through all objects in that layer
         // 3rd: check if object is spawnpoint or waypoint
@@ -186,7 +194,10 @@ export class Start extends Phaser.Scene {
         });
 
         this.waypoints.unshift(this.spawnPoint); // add spawn point as first waypoint
-        this.enemyGroup = this.add.group();
+        this.enemyGroup = this.physics.add.group();
+        this.bulletGroup = this.physics.add.group();
+
+        this.physics.add.overlap(this.bulletGroup, this.enemyGroup, this.bulletHitEnemy, null, this);
 
     }
 
@@ -195,9 +206,11 @@ export class Start extends Phaser.Scene {
         //console.log("Starting wave " + this.wave); debug line
         // wave data from json
         const waveData  = this.cache.json.get('waves')[this.wave - 1]; 
+        const enemyStats = this.cache.json.get('enemies');
         let spawnIndex = 0;
         for (const [type, count] of Object.entries(waveData)) { // iterate through each enemy type in the wave
             if (["waveNum", "count"].includes(type)) continue; // skip non-enemy entries
+            const stats = enemyStats.find(e => e.name === type); // get stats for enemy type
             for (let i = 0; i <count; ++i) {
                 this.time.delayedCall(spawnIndex * 1000, () => { // spawn each enemy with a delay
                     console.log(`Spawning enemy of type: ${type}`); // debug line
@@ -205,7 +218,9 @@ export class Start extends Phaser.Scene {
                         scene: this,
                         x: this.spawnPoint.x,
                         y: this.spawnPoint.y,
-                        type: type // get type of enemy from wave
+                        type: type, // get type of enemy from wave
+                        hp: stats.health, // get health from enemy stats
+                        money: stats.money // get money from enemy stats
                     });
                     //console.log("Spawning enemy at " + this.spawnPoint.x + ", " + this.spawnPoint.y), // debug line
                     console.log("Monster instance: ", monster); // debug line

@@ -109,6 +109,7 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
             if (this.last_attack + this.attack_speed < time){
                 this.last_attack = time;
                 let b = new Bullet(this.scene, this.x, this.y, enemy_array[0], this.bullet_speed, this.damage, this.bullet_asset, 0.4);
+                this.scene.bulletGroup.add(b);
             }
         });
     }

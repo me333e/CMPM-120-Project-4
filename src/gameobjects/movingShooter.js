@@ -124,11 +124,13 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
                 if (this.upgrade == false) {
                     for (let i = 0; i < 8; i += 1) {
                         let b = new Bullet(this.scene, this.x, this.y, Phaser.Math.DegToRad(i*45), this.bullet_speed, this.damage, this.bullet_asset, 1);
+                        this.scene.bulletGroup.add(b);
                     }
                 }
                 else if (this.upgrade == true) {
                     for (let i = 0; i < 12; i += 1) {
                         let b = new Bullet(this.scene, this.x, this.y, Phaser.Math.DegToRad(i*30), this.bullet_speed, this.damage, this.bullet_asset, 1);
+                        this.scene.bulletGroup.add(b);
                     }
                 }
             }

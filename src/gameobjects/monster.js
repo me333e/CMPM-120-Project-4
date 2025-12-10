@@ -4,7 +4,9 @@ export class Monster extends Phaser.GameObjects.Sprite {
         scene, // Phaser scene
         x = 0, // default x
         y = 0, // default y
-        type // monster type
+        type, // monster type
+        hp, // health points
+        money
     }) 
     
     {
@@ -23,15 +25,25 @@ export class Monster extends Phaser.GameObjects.Sprite {
             this.play("wolfWalk"); // play walk animation
         }
 
-        this.maxHP = 100;
-        this.hp = this.maxHP;
+        this.maxHP = hp;
+        this.hp = hp;
+        this.money = money;
         this.healthBar = new HealthBar(scene, x - 20, y - 32); // create health bar
+        this.healthBar.max = hp;
+        this.healthBar.setValue(hp);
+
+        console.log(`${type} initialized with HP: ${hp}`);
     }
 
     takeDamage(amount) {
+        
         this.hp -= amount;
         this.healthBar.decrease(amount);
         if (this.hp <= 0) {
+            console.log("scene: ", this.scene);
+            console.log(`Monster defeated! Gained ${this.money} currency.`);
+            this.scene.currency += this.money;
+
             this.healthBar.destroy();
             this.destroy();
         }
