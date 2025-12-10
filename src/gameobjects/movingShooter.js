@@ -120,7 +120,9 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
             enemy_array.push(e);
             if (this.last_attack + this.attack_speed < time){
                 this.last_attack = time;
-                let b = new Bullet(this.scene, this.x, this.y, enemy_array[0], this.bullet_speed, this.damage, this.bullet_asset, 1);
+                for (let i = 0; i < 8; i++) {
+                    let b = new Bullet(this.scene, this.x, this.y, i*45, this.bullet_speed, this.damage, this.bullet_asset, 1);
+                }
             }
         });
     }

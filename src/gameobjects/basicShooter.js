@@ -83,7 +83,7 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
     upgrades(which) {
         if (which.key == 'upgradeButton') {
             this.scene.currency -= 10;
-            this.attack_speed = 5000;
+            this.attack_speed = 300;
         }
         else if (which.key == 'deleteButton') {
             this.scene.currency += 2;

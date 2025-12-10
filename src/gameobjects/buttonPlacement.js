@@ -80,28 +80,16 @@ export class ButtonPlacement extends Phaser.GameObjects.Sprite {
             this.scene.currency -= 6;
             const basic = new DebuffShooter({scene: this.scene, x: this.x - 9, y: this.y + 7, button: this});
             basic.setDepth(2);
-            basic.setInteractive();
-            basic.on('pointerdown', () => { 
-                this.upgrades();
-            });
         }
         else if (which == 'rangeButton') {
             this.scene.currency -= 7;
             const basic = new RangeShooter({scene: this.scene, x: this.x - 5, y: this.y + 4, button: this});
             basic.setDepth(2);
-            basic.setInteractive();
-            basic.on('pointerdown', () => { 
-                this.upgrades();
-            });
         }
         else if (which == 'movingButton') {
             this.scene.currency -= 7;
             const basic = new MovingShooter({scene: this.scene, x: this.x - 7, y: this.y + 9, button: this});
             basic.setDepth(2);
-            basic.setInteractive();
-            basic.on('pointerdown', () => { 
-                this.upgrades();
-            });
         }
     }
 
