@@ -25,14 +25,25 @@ export class Bullet extends Phaser.GameObjects.Sprite {
             this.rotation += 15*dt;
         }
         else {
+            let adjust = 0;
+            if (this.which.key == 'rangeProj') {
+                adjust = 2.5;
+            }
             const dx = this.target.x - this.x;
             const dy = this.target.y - this.y;
             const angle = Math.atan2(dy, dx);
-            this.rotation = angle+Math.PI;
+            this.rotation = angle - 1.8 + adjust;
             if (Math.abs(dx) > 10 || Math.abs(dy) > 10)
             {
                 this.x += Math.cos(angle)*this.speed*dt;
                 this.y += Math.sin(angle)*this.speed*dt;
+            }
+
+            if (!this.target) {
+                this.destroy();
+            }
+            else if (this.target.active != true) {
+                this.destroy();
             }
         }
 

@@ -84,7 +84,7 @@ export class DebuffShooter extends Phaser.GameObjects.Sprite {
     upgrades(which) {
         if (which.key == 'upgradeButton') {
             this.scene.currency -= 10;
-            this.upgrade = true;
+            this.upgrade = true;        //still need to implement
         }
         else if (which.key == 'deleteButton') {
             this.scene.currency += 2;
@@ -107,11 +107,20 @@ export class DebuffShooter extends Phaser.GameObjects.Sprite {
 
         this.scene.physics.world.overlap(this.circle, this.enemy, (c,e) => {
             enemy_array.push(e);
+        });
+
+        if (enemy_array.length > 0) {
+            let furthest_enemy = enemy_array[0];
             if (this.last_attack + this.attack_speed < time){
                 this.last_attack = time;
-                let b = new Bullet(this.scene, this.x, this.y, enemy_array[0], this.bullet_speed, this.damage, this.bullet_asset, 0.4);
+                enemy_array.forEach((e) => {
+                    if (e.y > furthest_enemy.y) {
+                        furthest_enemy = e;
+                    }
+                })
+                let b = new Bullet(this.scene, this.x, this.y, furthest_enemy, this.bullet_speed, this.damage, this.bullet_asset, 0.4);
                 this.scene.bulletGroup.add(b);
             }
-        });
+        }
     }
 }
