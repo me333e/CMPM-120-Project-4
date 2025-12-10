@@ -26,10 +26,10 @@ export class MonsterPathing {
       
         var speedFactor; // speed based on type
         if (this.type === 'slime') {
-            speedFactor = 300; // 50 for slime, 300 for debug
+            speedFactor = 50; // 50 for slime, 300 for debug
         } else if (this.type === 'wolf') {
             // console.log("Setting speed for wolf"); debug line
-            speedFactor = 400; // 100 for wolf, 400 for debug
+            speedFactor = 100; // 100 for wolf, 400 for debug
         }
 
         const pathLength = this.curve.getLength();
@@ -58,6 +58,9 @@ export class MonsterPathing {
             onComplete: () => { // destroy monster at end of path
                 if (this.monster) {
                     this.monster.destroy();
+                    if (this.scene.enemyGroup) { // remove from enemy group
+                        this.scene.enemyGroup.remove(this.monster, true, true);
+                    }
                 }
                 if (this.scene.playerhp !== undefined) {
                     this.scene.playerhp -= 1; // reduce player HP
