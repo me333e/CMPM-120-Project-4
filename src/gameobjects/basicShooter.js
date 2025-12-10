@@ -26,8 +26,9 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
         this.attack_speed = 3000;
         this.bullet_speed = 200;
         this.damage = 2;
-        //this.bullet_asset = i need to send asset to the file;
-        //this.angle = Phaser.Math.Angle.Between(enemy.x, enemy.y, x, y);
+        this.bullet_asset = scene.textures.get('basicProj');
+        this.enemy = scene.enemyGroup;
+        //this.angle = Phaser.Math.Angle.Between(this.enemy.x, this.enemy.y, x, y);
 
         this.circle = scene.add.circle(x + 13, y - 12, 100, 0x00ff00, 0.35);
         this.circle.setVisible(false);

@@ -25,6 +25,7 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
         this.attack_speed = 3000;
         this.bullet_speed = 200;
         this.damage = 2;
+        this.bullet_asset = scene.textures.get('movingProj');
 
         this.circle = scene.add.circle(x + 13, y - 12, 115, 0x00ff00, 0.35);
         this.circle.setVisible(false);
