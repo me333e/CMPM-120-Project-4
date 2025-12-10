@@ -20,7 +20,6 @@ export class Bullet extends Phaser.GameObjects.Sprite {
         this.last_time = time;
 
         if (this.which.key == 'movingProj') {
-            this.target = Phaser.Math.DegToRad(this.target);
             this.x += Math.cos(this.target)*this.speed*dt;
             this.y += Math.sin(this.target)*this.speed*dt;
             this.rotation += 15*dt;
@@ -37,10 +36,10 @@ export class Bullet extends Phaser.GameObjects.Sprite {
             }
         }
 
-        if (this.x > 877 || this.x < 398) {
+        if (this.x > 877 || this.x < 400) {
             this.destroy();
         }
-        if (this.y > 720 || this.y < 0) {
+        if (this.y > 685 || this.y < 55) {
             this.destroy();
         }
     }

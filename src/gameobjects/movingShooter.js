@@ -24,10 +24,11 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
 
         this.last_attack = 0;
         this.attack_speed = 500;
-        this.bullet_speed = 1000;
+        this.bullet_speed = 600;
         this.damage = 2;
         this.bullet_asset = scene.textures.get('movingProj');
         this.enemy = scene.enemyGroup;
+        this.upgrade = false;
 
         this.circle = scene.add.circle(x + 13, y - 12, 115, 0x00ff00, 0.35);
         this.circle.setVisible(false);
@@ -95,7 +96,7 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
     upgrades(which) {
         if (which.key == 'upgradeButton') {
             this.scene.currency -= 10;
-            //remember this one shoots in multiple directions and the upgrade will basically add more directions
+            this.upgrade = true;
         }
         else if (which.key == 'deleteButton') {
             this.scene.currency += 2;
@@ -120,8 +121,15 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
             enemy_array.push(e);
             if (this.last_attack + this.attack_speed < time){
                 this.last_attack = time;
-                for (let i = 0; i < 8; i++) {
-                    let b = new Bullet(this.scene, this.x, this.y, i*45, this.bullet_speed, this.damage, this.bullet_asset, 1);
+                if (this.upgrade == false) {
+                    for (let i = 0; i < 8; i += 1) {
+                        let b = new Bullet(this.scene, this.x, this.y, Phaser.Math.DegToRad(i*45), this.bullet_speed, this.damage, this.bullet_asset, 1);
+                    }
+                }
+                else if (this.upgrade == true) {
+                    for (let i = 0; i < 12; i += 1) {
+                        let b = new Bullet(this.scene, this.x, this.y, Phaser.Math.DegToRad(i*30), this.bullet_speed, this.damage, this.bullet_asset, 1);
+                    }
                 }
             }
         });
