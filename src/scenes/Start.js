@@ -210,7 +210,7 @@ export class Start extends Phaser.Scene {
                     //console.log("Spawning enemy at " + this.spawnPoint.x + ", " + this.spawnPoint.y), // debug line
                     console.log("Monster instance: ", monster); // debug line
                     this.enemyGroup.add(monster);
-                    new MonsterPathing(this, this.waypoints, monster);
+                    new MonsterPathing(this, this.waypoints, monster, type); // create pathing for the monster
 
                 });
                 spawnIndex++;
