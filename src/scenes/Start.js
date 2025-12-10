@@ -83,7 +83,7 @@ export class Start extends Phaser.Scene {
         this.scene.launch('UI');            //we can change to our own later
         this.playerhp = 100;
         this.wave = 0;
-        this.currency = 0;
+        this.currency = 5;
         this.timer = 0;
 
         //this.basicAfford = false;
