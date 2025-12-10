@@ -1,4 +1,5 @@
 import {UpgradeButtonPlacement} from "../gameobjects/upgradeButtonPlacement.js";
+import {Bullet} from '../gameobjects/bullet.js';
 
 export class MovingShooter extends Phaser.GameObjects.Sprite {
     constructor({
@@ -22,10 +23,11 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
         this.button = button;
 
         this.last_attack = 0;
-        this.attack_speed = 3000;
-        this.bullet_speed = 200;
+        this.attack_speed = 500;
+        this.bullet_speed = 1000;
         this.damage = 2;
         this.bullet_asset = scene.textures.get('movingProj');
+        this.enemy = scene.enemyGroup;
 
         this.circle = scene.add.circle(x + 13, y - 12, 115, 0x00ff00, 0.35);
         this.circle.setVisible(false);
@@ -108,5 +110,18 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
             this.buttons.enable = false;
             this.destroy();
         }
+    }
+
+    preUpdate(time, delta) {
+        super.preUpdate(time, delta);
+        let enemy_array = [];
+
+        this.scene.physics.world.overlap(this.circle, this.enemy, (c,e) => {
+            enemy_array.push(e);
+            if (this.last_attack + this.attack_speed < time){
+                this.last_attack = time;
+                let b = new Bullet(this.scene, this.x, this.y, enemy_array[0], this.bullet_speed, this.damage, this.bullet_asset, 1);
+            }
+        });
     }
 }
