@@ -9,7 +9,7 @@ export class Monster extends Phaser.GameObjects.Sprite {
     
     {
         super(scene, x, y, type); // empty frame string
-        this.setOrigin(0, 1); // set origin to bottom-left
+        this.setOrigin(0.5, 0.5); // set origin to bottom-left
         scene.add.existing(this); // add to scene
         scene.physics.add.existing(this);
         this.setDepth(5); // set depth
@@ -18,6 +18,9 @@ export class Monster extends Phaser.GameObjects.Sprite {
         if (type === 'slime') {
             console.log("Slime created at:", x, y);
             this.play("slimeWalk"); // play walk animation
+        } else if (type === 'wolf') {
+            console.log("Wolf created at:", x, y);
+            this.play("wolfWalk"); // play walk animation
         }
         
 

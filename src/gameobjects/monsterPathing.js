@@ -31,13 +31,13 @@ export class MonsterPathing {
         scene.tweens.add({
             targets: this.path,
             t: 1,
-            ease: 'Sine.easeInOut',
-            duration: 4000,
+            ease: 'Linear',
+            duration: 10000,
             yoyo: false,
             repeat: 0,
             onUpdate: () => { // update monster position
                 this.curve.getPoint(this.path.t, this.path.vec);
-                if (!this.monster) {
+                if (!this.monster) { //debug line
                     console.warn('MonsterPathing: No monster to move along the path.');
                     return;
                 }

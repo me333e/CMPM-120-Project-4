@@ -66,6 +66,11 @@ export class Start extends Phaser.Scene {
             frameHeight: 48,
         });
 
+        this.load.spritesheet('wolf', 'assets/WolfWalk.png', {
+            frameWidth: 48,
+            frameHeight: 48,
+        });
+
     }
 
     create() {
@@ -127,6 +132,12 @@ export class Start extends Phaser.Scene {
             repeat: -1
         });
 
+        this.anims.create({
+            key: "wolfWalk",
+            frames: this.anims.generateFrameNumbers('wolf', {start: 0, end: 5}),
+            frameRate: 6,
+            repeat: -1
+        });
 
         var bp = this.map.getObjectLayer('buttonPlacements');
 
