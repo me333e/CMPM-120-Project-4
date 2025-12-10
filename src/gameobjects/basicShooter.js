@@ -32,6 +32,7 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
         this.circle = scene.add.circle(x + 13, y - 12, 100, 0x00ff00, 0.35);
         this.circle.setVisible(false);
         scene.physics.add.existing(this.circle);
+        this.circle.body.setCircle(100);
         this.seeCircle = false;
         this.on('pointerdown', () => { 
             if (!this.seeCircle) {
