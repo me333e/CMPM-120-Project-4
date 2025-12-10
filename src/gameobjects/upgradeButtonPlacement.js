@@ -44,26 +44,28 @@ export class UpgradeButtonPlacement extends Phaser.GameObjects.Sprite {
     }
 
     upgradeButton() {
-        if (!this.towerClicked) {
-            this.towerClicked = true;
-            this.cost.setVisible(true);
-            if (this.scene.afford[this.afford] == true) {
-                this.buttonDisabled.setVisible(false);
-                this.setVisible(true);
-                this.enable = true;
+        if (this.active === true) {
+            if (!this.towerClicked) {
+                this.towerClicked = true;
+                this.cost.setVisible(true);
+                if (this.scene.afford[this.afford] == true) {
+                    this.buttonDisabled.setVisible(false);
+                    this.setVisible(true);
+                    this.enable = true;
+                }
+                else {
+                    this.buttonDisabled.setVisible(true);
+                    this.setVisible(false);
+                    this.enable = false;
+                }
             }
             else {
-                this.buttonDisabled.setVisible(true);
+                this.towerClicked = false;
+                this.buttonDisabled.setVisible(false);
                 this.setVisible(false);
                 this.enable = false;
+                this.cost.setVisible(false);
             }
-        }
-        else {
-            this.towerClicked = false;
-            this.buttonDisabled.setVisible(false);
-            this.setVisible(false);
-            this.enable = false;
-            this.cost.setVisible(false);
         }
     }
 

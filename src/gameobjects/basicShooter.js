@@ -73,7 +73,6 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
 
             this.on('pointerdown', () => { 
                 upgradeButton.upgradeButton();
-                console.log(upgradeButton.towerClicked);
             });
         });
 
