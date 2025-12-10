@@ -9,16 +9,30 @@
 
     {
         "waveNum": 2,
-        "count": 20,
-        "slime" : 10,
-        "wolf" : 10
+        "count": 15,
+        "slime" : 7,
+        "wolf" : 8
     },
 
     {
         "waveNum": 3,
-        "count": 10,
+        "count": 15,
         "slime" : 5,
+        "wolf" : 10
+    },
+
+    {
+        "waveNum": 4,
+        "count": 15,
+        "slime" : 10,
         "wolf" : 5
+    },
+
+    {
+        "waveNum": 5,
+        "count": 20,
+        "slime" : 10,
+        "wolf" : 10
     }
 
 
