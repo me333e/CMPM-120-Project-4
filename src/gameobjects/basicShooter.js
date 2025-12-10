@@ -23,8 +23,8 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
         this.button = button;
 
         this.last_attack = 0;
-        this.attack_speed = 3000;
-        this.bullet_speed = 200;
+        this.attack_speed = 500;
+        this.bullet_speed = 1000;
         this.damage = 2;
         this.bullet_asset = scene.textures.get('basicProj');
         this.enemy = scene.enemyGroup;
@@ -100,7 +100,8 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
         }
     }
 
-    preUpdate(time) {
+    preUpdate(time, delta) {
+        super.preUpdate(time, delta);
         let enemy_array = [];
 
         this.scene.physics.world.overlap(this.circle, this.enemy, (c,e) => {
@@ -110,7 +111,7 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
             if (this.last_attack + this.attack_speed < time){
                 this.last_attack = time;
                 let angle = Phaser.Math.Angle.Between(enemy_array[0].x, enemy_array[0].y, this.x, this.y);
-                //let b = new Bullet(this.scene, this.x, this.y, angle, this.bullet_speed, this.damage, this.bullet_asset);
+                let b = new Bullet(this.scene, this.x, this.y, angle, this.bullet_speed, this.damage, this.bullet_asset);
             }
         });
     }
