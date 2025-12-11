@@ -31,6 +31,9 @@ export class MonsterPathing {
             // console.log("Setting speed for wolf"); debug line
             speedFactor = 50; // 100 for wolf, 400 for debug
         }
+        else if (this.type === 'alina') {
+            speedFactor = 25;
+        }
 
         const pathLength = this.curve.getLength();
         const monsterSpeed = pathLength / speedFactor * 1000; // duration based on speed

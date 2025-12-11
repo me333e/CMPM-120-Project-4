@@ -2,9 +2,8 @@
     
     { 
         "waveNum": 1,
-        "count": 10,
-        "slime" : 5,
-        "wolf" : 5
+        "count": 1,
+        "alina": 1
     },
 
     {

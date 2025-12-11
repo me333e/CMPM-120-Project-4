@@ -1,4 +1,5 @@
 import { HealthBar } from "./HealthBar.js";
+
 export class Monster extends Phaser.GameObjects.Sprite {
     constructor({ // destructured params
         scene, // Phaser scene
@@ -14,7 +15,7 @@ export class Monster extends Phaser.GameObjects.Sprite {
         this.setOrigin(0.5, 0.5); // set origin to bottom-left
         scene.add.existing(this); // add to scene
         scene.physics.add.existing(this);
-        this.setDepth(5); // set depth
+        this.setDepth(3); // set depth
         //this.setScale(2);
 
         if (type === 'slime') {
@@ -23,6 +24,15 @@ export class Monster extends Phaser.GameObjects.Sprite {
         } else if (type === 'wolf') {
             console.log("Wolf created at:", x, y);
             this.play("wolfWalk"); // play walk animation
+        }
+        else if (type === 'alina') {
+            console.log("alina boss created at:", x, y);
+            this.play("alinaIdle"); // play walk animation
+            this.setScale(2);
+            this.circle = scene.add.circle(x, y, 200, 0x00ff00, 0.35);
+            this.circle.setVisible(false);
+            scene.physics.add.existing(this.circle);
+            this.circle.body.setCircle(200);
         }
 
         this.maxHP = hp;
@@ -45,6 +55,9 @@ export class Monster extends Phaser.GameObjects.Sprite {
             this.scene.currency += this.money;
 
             this.healthBar.destroy();
+            if (this.circle) {
+                this.circle.destroy();
+            }
             this.destroy();
         }
     }
@@ -53,6 +66,17 @@ export class Monster extends Phaser.GameObjects.Sprite {
         super.preUpdate(time, delta);
         // Update health bar position
         this.healthBar.setPosition(this.x - 20, this.y - 20);
+
+        if (this.circle) {
+            this.circle.x = this.x;
+            this.circle.y = this.y;
+
+            this.scene.physics.world.overlap(this.circle, this.scene.towerGroup, (b,t) => {
+                this.scene.towerGroup.children.iterate((tower) => {
+                    tower.attack_speed = 800;
+                });
+            });
+        }
     }
 
     destroy(fromScene) {

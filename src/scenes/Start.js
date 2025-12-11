@@ -71,6 +71,11 @@ export class Start extends Phaser.Scene {
             frameHeight: 48,
         });
 
+        this.load.spritesheet('alina', 'assets/GoblinOccultist.png', {
+            frameWidth: 16,
+            frameHeight: 16,
+        });
+
     }
 
     bulletHitEnemy(bullet, monster) {
@@ -92,15 +97,11 @@ export class Start extends Phaser.Scene {
         this.layer3.setDepth(0);
 
 
-        this.scene.launch('UI');            //we can change to our own later
+        this.scene.launch('UI');
         this.playerhp = 100;
         this.wave = 0;
         this.currency = 5;
         this.timer = 0;
-
-        //this.basicAfford = false;
-        //this.debuffAfford = false;
-        //this.rangeMovingAfford = false;
 
         this.afford = {"basic": false, "debuff": false, "rangeMoving": false, "upgrade": false, "delete": true};
 
@@ -142,6 +143,13 @@ export class Start extends Phaser.Scene {
         this.anims.create({
             key: "wolfWalk",
             frames: this.anims.generateFrameNumbers('wolf', {start: 0, end: 5}),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: "alinaIdle",
+            frames: this.anims.generateFrameNumbers('alina', {start: 0, end: 3}),
             frameRate: 6,
             repeat: -1
         });
@@ -196,6 +204,7 @@ export class Start extends Phaser.Scene {
         this.waypoints.unshift(this.spawnPoint); // add spawn point as first waypoint
         this.enemyGroup = this.physics.add.group();
         this.bulletGroup = this.physics.add.group();
+        this.towerGroup = this.physics.add.group();
 
         this.physics.add.overlap(this.bulletGroup, this.enemyGroup, this.bulletHitEnemy, null, this);
 

@@ -4,7 +4,7 @@ export class Bullet extends Phaser.GameObjects.Sprite {
          scene.add.existing(this);
          scene.physics.add.existing(this);
          this.target = target;
-         this.setDepth(3);
+         this.setDepth(4);
          this.setScale(scale);
          this.scene = scene;
          this.last_time = this.scene.time.now;

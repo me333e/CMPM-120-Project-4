@@ -13,6 +13,7 @@ export class DebuffShooter extends Phaser.GameObjects.Sprite {
         super(scene, x, y, 'debuffShooter');
         this.setOrigin(0, 1);
         scene.add.existing(this);
+        scene.physics.add.existing(this);
         this.setInteractive();
         this.setScale(2);
         this.play("idleD");
