@@ -12,9 +12,9 @@ export class MonsterPathing {
         this.curve = new Phaser.Curves.Spline(this.points);
 
         // Draw the path for visualization
-        this.graphics = scene.add.graphics();
-        this.graphics.lineStyle(2, 0xffffff, 1);
-        this.curve.draw(this.graphics, 64);
+        // this.graphics = scene.add.graphics();
+        // this.graphics.lineStyle(2, 0xffffff, 1);
+        // this.curve.draw(this.graphics, 64);
 
         // Place the monster at the start of the path
         // this.monster = scene.add.circle(this.points[0].x, this.points[0].y, 12, 0xff0000);
