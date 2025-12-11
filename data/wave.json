@@ -2,38 +2,57 @@
     
     { 
         "waveNum": 1,
-        "count": 1,
-        "jerry": 1
+        "count": 6,
+        "slime" : 3,
+        "wolf" : 3
     },
 
     {
         "waveNum": 2,
-        "count": 15,
-        "slime" : 7,
-        "wolf" : 8
-    },
-
-    {
-        "waveNum": 3,
-        "count": 15,
-        "slime" : 5,
-        "wolf" : 10
-    },
-
-    {
-        "waveNum": 4,
         "count": 15,
         "slime" : 10,
         "wolf" : 5
     },
 
     {
-        "waveNum": 5,
-        "count": 20,
-        "slime" : 10,
+        "waveNum": 3,
+        "count": 18,
+        "slime" : 5,
         "wolf" : 10
+    },
+
+
+    {
+        "waveNum": 4,
+        "count": 21,
+        "slime" : 10,
+        "wolf" : 10,
+        "alina" : 1
+    },
+
+    {
+        "waveNum": 5,
+        "count": 21,
+        "slime" : 5,
+        "alina" : 1,
+        "wolf" : 15
+    },
+    
+    {
+        "waveNum": 6,
+        "count": 25,
+        "slime" : 10,
+        "alina" : 2,
+        "wolf" : 13
+    },
+
+    {
+        "waveNum": 7,
+        "count": 31,
+        "slime" : 15,
+        "jerry" : 1,
+        "alina" : 3,
+        "wolf" : 15
     }
-
-
 
 ]

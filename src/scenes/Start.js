@@ -136,7 +136,7 @@ export class Start extends Phaser.Scene {
         this.scene.launch('UI');
         this.playerhp = 100;
         this.wave = 0;
-        this.currency = 5;
+        this.currency = 0;
         this.timer = 0;
         this.debuff_upgrade = false;
 
@@ -258,7 +258,17 @@ export class Start extends Phaser.Scene {
     {   
         //console.log("Starting wave " + this.wave); debug line
         // wave data from json
-        const waveData  = this.cache.json.get('waves')[this.wave - 1]; 
+        const waves = this.cache.json.get('waves');
+        const waveData  = waves[this.wave - 1]; 
+
+        if (!waveData) {
+            console.log("No more waves defined. You win!");
+            this.GameWin();
+            return;
+        }
+
+
+
         const enemyStats = this.cache.json.get('enemies');
         let spawnIndex = 0;
         for (const [type, count] of Object.entries(waveData)) { // iterate through each enemy type in the wave
@@ -329,19 +339,32 @@ export class Start extends Phaser.Scene {
         this.events.emit('updateHP', this.playerhp);    //use when you want to update hp
         this.events.emit('updateWave', this.wave);      //use when you want to update wave number
 
+        if (this.playerhp <= 0) {
+            this.GameOver();
+            return;
+        }
+        
         // check wave end
         if (this.enemyGroup.children.entries.length == 0) {
             console.log("Wave " + this.wave + " ended."); // debug line
             this.wave += 1;
             this.newWave();
+            return;
         }
     }
 
-    checkEndGame()      //prob should add if statment to check if player hp has hit 0 yet fo lose end game, we need to also make a win one
+    GameOver()      //prob should add if statment to check if player hp has hit 0 yet fo lose end game, we need to also make a win one
     {
         this.scene.stop('UI');
         this.scene.stop("Start");
-        this.scene.start('GameOver', /*{highscore: this.high_score}*/);
+        this.scene.start('GameOver');
+    }
+
+    GameWin()
+    {
+        this.scene.stop('UI');
+        this.scene.stop("Start");
+        this.scene.start('GameWin');
     }
     
 }

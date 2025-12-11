@@ -51,13 +51,14 @@ export class MonsterPathing {
             },
             onComplete: () => { // destroy monster at end of path
                 if (this.monster && this.monster.active) {
+                    const damage = this.monster.hp; 
                     this.monster.destroy();
                     if (this.scene.enemyGroup) { // remove from enemy group
                         this.scene.enemyGroup.remove(this.monster, true, true);
                     }
                     if (this.scene.playerhp !== undefined) {
-                        console.log('Monster reached the end of the path. Reducing player HP.'); // debug line
-                        this.scene.playerhp -= 1; // reduce player HP
+                        console.log(`Monster reached the end of the path. Reducing player HP by ${damage}.`); // debug line
+                        this.scene.playerhp -= damage; // reduce player HP
                     }
                 }
         
@@ -94,13 +95,14 @@ export class MonsterPathing {
                     },
                     onComplete: () => {
                         if (this.monster && this.monster.active) {
+                            const damage = this.monster.hp;
                             this.monster.destroy();
                             if (this.scene.enemyGroup) {
                                 this.scene.enemyGroup.remove(this.monster, true, true);
                             }
                             if (this.scene.playerhp !== undefined) {
-                                console.log('Monster reached the end of the path. Reducing player HP.');
-                                this.scene.playerhp -= 1;
+                                console.log(`Monster reached the end of the path. Reducing player HP by ${damage}.`); // debug line
+                                this.scene.playerhp -= damage; // reduce player HP
                             }
                         }
                     }
@@ -152,13 +154,14 @@ export class MonsterPathing {
                     },
                     onComplete: () => {
                         if (this.monster && this.monster.active) {
+                            const damage = this.monster.hp;
                             this.monster.destroy();
                             if (this.scene.enemyGroup) {
                                 this.scene.enemyGroup.remove(this.monster, true, true);
                             }
                             if (this.scene.playerhp !== undefined) {
-                                console.log('Monster reached the end of the path. Reducing player HP.');
-                                this.scene.playerhp -= 1;
+                                console.log(`Monster reached the end of the path. Reducing player HP by ${damage}.`); // debug line
+                                this.scene.playerhp -= damage; // reduce player HP
                             }
                         }
                     }

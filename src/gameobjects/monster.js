@@ -70,8 +70,8 @@ export class Monster extends Phaser.GameObjects.Sprite {
             this.scene.events.emit('pushBackMonster', this);
 
             // instant heal of 20% of maxHP upon entering phase two
-            const healAmount = Math.floor(this.maxHP * 0.2);
-            this.hp = Math.min(this.hp + healAmount, this.maxHP);
+            const healAmount = Math.floor(this.maxHP * 0.2); // 20% heal
+            this.hp = Math.min(this.hp + healAmount, this.maxHP); // cap at maxHP
             this.healthBar.setValue(this.hp);
             console.log(`Jerry healed for ${healAmount} upon entering phase two. Current HP: ${this.hp}`);
 
@@ -81,7 +81,7 @@ export class Monster extends Phaser.GameObjects.Sprite {
                 callback: () => {
                     if (this.active && this.hp < this.maxHP) {
                         const healAmount = Math.floor(this.maxHP * 0.1); // heal 10% of maxHP
-                        this.hp = Math.min(this.hp + healAmount, this.maxHP);
+                        this.hp = Math.min(this.hp + healAmount, this.maxHP); // cap at maxHP
                         this.healthBar.setValue(this.hp);
                         console.log(`Jerry healed for ${healAmount}. Current HP: ${this.hp}`);
                     }

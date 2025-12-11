@@ -2,28 +2,28 @@
     {
         "name": "slime",
         "health": 10,
-        "speed": 25,
-        "money": 2
+        "speed": 40,
+        "money": 1
     },
     
     {
         "name": "wolf",
         "health": 6,
-        "speed": 50,
-        "money": 2
+        "speed": 80,
+        "money": 1
     },
 
     {
         "name": "alina",
-        "health": 25,
-        "speed": 50,
-        "money": 3
+        "health": 50,
+        "speed": 60,
+        "money": 5
     },
 
     {
         "name": "jerry",
-        "health": 50,
-        "speed": 30,
+        "health": 250,
+        "speed": 50,
         "money": 20
     }
        
