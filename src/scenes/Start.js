@@ -95,7 +95,12 @@ export class Start extends Phaser.Scene {
                 }
                 console.log("Applying debuff to monster");
                 monster.isSlowed = true;
-                monster.speed *= 0.50; // reduce speed by 50%
+                if (this.debuff_upgrade == true) {
+                    monster.speed *= 0.25;
+                }
+                else {
+                    monster.speed *= 0.50; // reduce speed by 50%
+                }
 
                 // emit event to update monster speed to slow
                 this.events.emit('updateMonsterSpeed', monster);
@@ -133,6 +138,7 @@ export class Start extends Phaser.Scene {
         this.wave = 0;
         this.currency = 5;
         this.timer = 0;
+        this.debuff_upgrade = false;
 
         this.afford = {"basic": false, "debuff": false, "rangeMoving": false, "upgrade": false, "delete": true};
 

@@ -30,7 +30,6 @@ export class DebuffShooter extends Phaser.GameObjects.Sprite {
         this.damage = 2;
         this.bullet_asset = scene.textures.get('debuffProj');
         this.enemy = scene.enemyGroup;
-        this.upgrade = false;
 
         this.circle = scene.add.circle(x + 13, y - 12, 100, 0x00ff00, 0.35);
         this.circle.setVisible(false);
@@ -86,7 +85,7 @@ export class DebuffShooter extends Phaser.GameObjects.Sprite {
     upgrades(which) {
         if (which.key == 'upgradeButton') {
             this.scene.currency -= 10;
-            this.upgrade = true;        //still need to implement
+            this.scene.debuff_upgrade = true;
         }
         else if (which.key == 'deleteButton') {
             this.scene.currency += 2;
