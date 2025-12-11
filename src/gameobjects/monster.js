@@ -42,6 +42,8 @@ export class Monster extends Phaser.GameObjects.Sprite {
         this.maxSpeed = speed;
         this.speed = speed;
 
+        this.isSlowed = false;
+
         this.healthBar = new HealthBar(scene, x - 20, y - 32); // create health bar
         this.healthBar.max = hp;
         this.healthBar.setValue(hp);

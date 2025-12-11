@@ -120,7 +120,8 @@ export class DebuffShooter extends Phaser.GameObjects.Sprite {
                         furthest_enemy = e;
                     }
                 })
-                let b = new Bullet(this.scene, this.x, this.y, furthest_enemy, this.bullet_speed, this.damage, this.bullet_asset, 0.4);
+                let b = new Bullet(this.scene, this.x, this.y, furthest_enemy, this.bullet_speed, 
+                    this.damage, this.bullet_asset, 0.4, true);
                 this.scene.bulletGroup.add(b);
             }
         }

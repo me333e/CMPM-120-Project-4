@@ -81,6 +81,27 @@ export class Start extends Phaser.Scene {
     bulletHitEnemy(bullet, monster) {
         if (monster.active && bullet.active) {
             monster.takeDamage(bullet.damage);
+
+            if(bullet.isDebuff && !monster.isSlowed) {
+                console.log("Applying debuff to monster");
+                monster.isSlowed = true;
+                monster.speed *= 0.50; // reduce speed by 50%
+
+                // emit event to update monster speed to slow
+                this.events.emit('updateMonsterSpeed', monster);
+
+                // restore speed after 2 seconds
+                this.time.delayedCall(2000, () => {
+                    if(monster.active) {
+                        monster.speed = monster.maxSpeed;
+                        monster.isSlowed = false;
+
+                        // emit event to update monster speed to normal
+                        this.events.emit('updateMonsterSpeed', monster);
+                    }
+                });
+            }
+
             bullet.destroy();
         }
     }

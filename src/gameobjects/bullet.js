@@ -1,5 +1,5 @@
 export class Bullet extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, target, speed, damage, asset, scale){
+    constructor(scene, x, y, target, speed, damage, asset, scale, isDebuff = false) {
          super(scene, x, y, asset);
          scene.add.existing(this);
          scene.physics.add.existing(this);
@@ -10,6 +10,7 @@ export class Bullet extends Phaser.GameObjects.Sprite {
          this.last_time = this.scene.time.now;
          this.speed = speed;
          this.damage = damage;
+         this.isDebuff = isDebuff;
          this.scene.time.delayedCall(10000, () => this.destroy());
          this.which = asset;
     }

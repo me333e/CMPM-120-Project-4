@@ -31,9 +31,9 @@ export class MonsterPathing {
 
         // Path progress
         this.path = { t: 0, vec: new Phaser.Math.Vector2() };
-
-        // Tween to move monster along the path
-        scene.tweens.add({
+        
+        // tween for monster movement
+        this.monster.pathTween = scene.tweens.add({
             targets: this.path,
             t: 1,
             ease: 'Linear',
@@ -63,6 +63,44 @@ export class MonsterPathing {
         
             }
         });
+
+        scene.events.on('updateMonsterSpeed', (updatedMonster) => {
+            if (updatedMonster === this.monster && this.monster.pathTween) {
+                const remainingT = 1 - this.path.t;
+                this.monster.pathTween.stop();
+
+                const newDuration = pathLength / this.monster.speed * 1000 * remainingT;
+                this.monster.pathTween = scene.tweens.add({
+                    targets: this.path,
+                    t: 1,
+                    ease: 'Linear',
+                    duration: newDuration,
+                    yoyo: false,
+                    repeat: 0,
+                    onUpdate: () => {
+                        this.curve.getPoint(this.path.t, this.path.vec);
+                        if (!this.monster) {
+                            console.warn('MonsterPathing: No monster to move along the path.');
+                            return;
+                        }
+                        this.monster.x = this.path.vec.x;
+                        this.monster.y = this.path.vec.y;
+                    },
+                    onComplete: () => {
+                        if (this.monster && this.monster.active) {
+                            this.monster.destroy();
+                            if (this.scene.enemyGroup) {
+                                this.scene.enemyGroup.remove(this.monster, true, true);
+                            }
+                            if (this.scene.playerhp !== undefined) {
+                                console.log('Monster reached the end of the path. Reducing player HP.');
+                                this.scene.playerhp -= 1;
+                            }
+                        }
+                    }
+                });
+            }
+        });        
     }
 }
 

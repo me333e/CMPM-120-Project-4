@@ -16,9 +16,8 @@
     {
         "name": "alina",
         "health": 25,
-        "speed": 25,
+        "speed": 50,
         "money": 3
     }
-
-          
+       
 ]
