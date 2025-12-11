@@ -66,6 +66,29 @@ export class Monster extends Phaser.GameObjects.Sprite {
             this.phaseTwo = true;
             this.speed *= 2.0; // increase speed by 100%
             this.scene.events.emit('updateMonsterSpeed', this);
+
+            this.scene.events.emit('pushBackMonster', this);
+
+            // instant heal of 20% of maxHP upon entering phase two
+            const healAmount = Math.floor(this.maxHP * 0.2);
+            this.hp = Math.min(this.hp + healAmount, this.maxHP);
+            this.healthBar.setValue(this.hp);
+            console.log(`Jerry healed for ${healAmount} upon entering phase two. Current HP: ${this.hp}`);
+
+            // heal over time event
+            this.healingEvent = this.scene.time.addEvent({
+                delay: 2000, // every 2 seconds
+                callback: () => {
+                    if (this.active && this.hp < this.maxHP) {
+                        const healAmount = Math.floor(this.maxHP * 0.1); // heal 10% of maxHP
+                        this.hp = Math.min(this.hp + healAmount, this.maxHP);
+                        this.healthBar.setValue(this.hp);
+                        console.log(`Jerry healed for ${healAmount}. Current HP: ${this.hp}`);
+                    }
+                },
+                callbackScope: this,
+                loop: true
+            });
         } else {
             console.log("Phase two activation conditions not fully met.");
         }
@@ -108,6 +131,9 @@ export class Monster extends Phaser.GameObjects.Sprite {
     }
 
     destroy(fromScene) {
+        if (this.healingEvent) {
+            this.healingEvent.remove();
+        }
         if (this.healthBar) this.healthBar.bar.destroy();
         super.destroy(fromScene);
     }   

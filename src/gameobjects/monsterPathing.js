@@ -64,6 +64,12 @@ export class MonsterPathing {
             }
         });
 
+        scene.events.on('pushBackMonster', (updatedMonster) => {
+            if (updatedMonster === this.monster) {
+                this.pushBack(0.3); // push back by 30% of the path
+            }
+        });
+
         scene.events.on('updateMonsterSpeed', (updatedMonster) => {
             if (updatedMonster === this.monster && this.monster.pathTween) {
                 const remainingT = 1 - this.path.t;
@@ -101,6 +107,64 @@ export class MonsterPathing {
                 });
             }
         });          
+    }
+
+    pushBack(percentage)
+    {
+        const newT = Math.max(0, this.path.t - percentage);
+        const pushDuration = 500;
+
+        // stop current tween
+        if (this.monster.pathTween) {
+            this.monster.pathTween.stop();
+        }
+
+        // create new tween to push back
+        this.scene.tweens.add({
+            targets: this.path,
+            t: newT,
+            ease: 'Linear',
+            duration: pushDuration,
+            onUpdate: () => {
+                this.curve.getPoint(this.path.t, this.path.vec);
+                if(this.monster) {
+                    this.monster.x = this.path.vec.x;
+                    this.monster.y = this.path.vec.y;
+                }
+            },
+            onComplete: () => {
+                // resume forward movement
+                const pathLength = this.curve.getLength();
+                const remainingT = 1 - this.path.t;
+                const newDuration = pathLength / this.monster.speed * 1000 * remainingT;
+
+                this.monster.pathTween = this.scene.tweens.add({
+                    targets: this.path,
+                    t: 1,
+                    ease: 'Linear',
+                    duration: newDuration,
+                    onUpdate: () => {
+                        this.curve.getPoint(this.path.t, this.path.vec);
+                        if(this.monster) {
+                            this.monster.x = this.path.vec.x;
+                            this.monster.y = this.path.vec.y;
+                        }
+                    },
+                    onComplete: () => {
+                        if (this.monster && this.monster.active) {
+                            this.monster.destroy();
+                            if (this.scene.enemyGroup) {
+                                this.scene.enemyGroup.remove(this.monster, true, true);
+                            }
+                            if (this.scene.playerhp !== undefined) {
+                                console.log('Monster reached the end of the path. Reducing player HP.');
+                                this.scene.playerhp -= 1;
+                            }
+                        }
+                    }
+                });
+            }
+        });
     }
 }
 
