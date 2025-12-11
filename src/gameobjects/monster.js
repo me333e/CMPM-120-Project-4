@@ -29,10 +29,10 @@ export class Monster extends Phaser.GameObjects.Sprite {
             console.log("alina boss created at:", x, y);
             this.play("alinaIdle"); // play walk animation
             this.setScale(2);
-            this.circle = scene.add.circle(x, y, 200, 0x00ff00, 0.35);
+            this.circle = scene.add.circle(x, y, 150, 0x00ff00, 0.35);
             this.circle.setVisible(false);
             scene.physics.add.existing(this.circle);
-            this.circle.body.setCircle(200);
+            this.circle.body.setCircle(150);
         }
 
         this.maxHP = hp;
@@ -71,10 +71,11 @@ export class Monster extends Phaser.GameObjects.Sprite {
             this.circle.x = this.x;
             this.circle.y = this.y;
 
+            this.scene.towerGroup.children.iterate((tower) => {
+                tower.attack_speed = tower.saved_attack_speed;
+            });
             this.scene.physics.world.overlap(this.circle, this.scene.towerGroup, (b,t) => {
-                this.scene.towerGroup.children.iterate((tower) => {
-                    tower.attack_speed = 800;
-                });
+                t.attack_speed = t.saved_attack_speed * 1.7;
             });
         }
     }

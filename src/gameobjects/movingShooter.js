@@ -25,6 +25,7 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
 
         this.last_attack = 0;
         this.attack_speed = 500;
+        this.saved_attack_speed = 500;
         this.bullet_speed = 600;
         this.damage = 2;
         this.bullet_asset = scene.textures.get('movingProj');

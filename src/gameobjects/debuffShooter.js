@@ -25,6 +25,7 @@ export class DebuffShooter extends Phaser.GameObjects.Sprite {
 
         this.last_attack = 0;
         this.attack_speed = 500;
+        this.saved_attack_speed = 500;
         this.bullet_speed = 1000;
         this.damage = 2;
         this.bullet_asset = scene.textures.get('debuffProj');

@@ -25,6 +25,7 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
 
         this.last_attack = 0;
         this.attack_speed = 500;
+        this.saved_attack_speed = 500;
         this.bullet_speed = 1000;
         this.damage = 2;
         this.bullet_asset = scene.textures.get('basicProj');
@@ -86,6 +87,7 @@ export class BasicShooter extends Phaser.GameObjects.Sprite {
         if (which.key == 'upgradeButton') {
             this.scene.currency -= 10;
             this.attack_speed = 300;
+            this.saved_attack_speed = 300;
         }
         else if (which.key == 'deleteButton') {
             this.scene.currency += 2;
