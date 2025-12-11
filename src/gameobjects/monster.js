@@ -61,6 +61,10 @@ export class Monster extends Phaser.GameObjects.Sprite {
             this.healthBar.destroy();
             if (this.circle) {
                 this.circle.destroy();
+                this.scene.towerGroup.children.iterate((tower) => {
+                    tower.attack_speed = tower.saved_attack_speed;
+                    tower.clearTint();
+                });
             }
             this.destroy();
         }
@@ -77,9 +81,11 @@ export class Monster extends Phaser.GameObjects.Sprite {
             
             this.scene.towerGroup.children.iterate((tower) => {
                 tower.attack_speed = tower.saved_attack_speed;
+                tower.clearTint();
             });
             this.scene.physics.world.overlap(this.circle, this.scene.towerGroup, (b,t) => {
                 t.attack_speed = t.saved_attack_speed * 1.7;
+                t.setTint(0x40b2f5);
             });
         }
     }
