@@ -76,6 +76,11 @@ export class Start extends Phaser.Scene {
             frameHeight: 16,
         });
 
+        this.load.spritesheet('jerry', 'assets/EarthElemental.png', {
+            frameWidth: 16,
+            frameHeight: 16,
+        });
+
     }
 
     bulletHitEnemy(bullet, monster) {
@@ -83,6 +88,11 @@ export class Start extends Phaser.Scene {
             monster.takeDamage(bullet.damage);
 
             if(bullet.isDebuff && !monster.isSlowed) {
+                if(monster.texture.key === 'jerry') {
+                    console.log("Jerry is immune to debuffs.");
+                    bullet.destroy();
+                    return; // jerry is immune to debuffs
+                }
                 console.log("Applying debuff to monster");
                 monster.isSlowed = true;
                 monster.speed *= 0.50; // reduce speed by 50%
@@ -172,6 +182,13 @@ export class Start extends Phaser.Scene {
             key: "alinaIdle",
             frames: this.anims.generateFrameNumbers('alina', {start: 0, end: 3}),
             frameRate: 6,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: "jerryIdle",
+            frames: this.anims.generateFrameNumbers('jerry', {start: 0, end: 3}),
+            frameRate: 6, // 6 fps
             repeat: -1
         });
 

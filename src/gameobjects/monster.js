@@ -25,6 +25,10 @@ export class Monster extends Phaser.GameObjects.Sprite {
         } else if (type === 'wolf') {
             console.log("Wolf created at:", x, y);
             this.play("wolfWalk"); // play walk animation
+        } else if (type === 'jerry') {
+            console.log("jerry boss created at:", x, y);
+            this.play("jerryIdle"); // play walk animation
+            this.setScale(2.5);
         }
         else if (type === 'alina') {
             console.log("alina boss created at:", x, y);
@@ -43,6 +47,7 @@ export class Monster extends Phaser.GameObjects.Sprite {
         this.speed = speed;
 
         this.isSlowed = false;
+        this.phaseTwo = false;
 
         this.healthBar = new HealthBar(scene, x - 20, y - 32); // create health bar
         this.healthBar.max = hp;
@@ -52,14 +57,24 @@ export class Monster extends Phaser.GameObjects.Sprite {
     }
 
     takeDamage(amount) {
-        
         this.hp -= amount;
         this.healthBar.decrease(amount);
+    
+        // 'jerry' specific phase two logic
+        if (this.texture.key === 'jerry' && this.hp <= this.maxHP / 2 && !this.phaseTwo) {
+            console.log("All conditions satisfied. Jerry boss entering phase two!");
+            this.phaseTwo = true;
+            this.speed *= 2.0; // increase speed by 100%
+            this.scene.events.emit('updateMonsterSpeed', this);
+        } else {
+            console.log("Phase two activation conditions not fully met.");
+        }
+    
         if (this.hp <= 0) {
             console.log("scene: ", this.scene);
             console.log(`Monster defeated! Gained ${this.money} currency.`);
             this.scene.currency += this.money;
-
+    
             this.healthBar.destroy();
             if (this.circle) {
                 this.circle.destroy();

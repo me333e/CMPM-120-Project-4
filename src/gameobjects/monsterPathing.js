@@ -100,7 +100,7 @@ export class MonsterPathing {
                     }
                 });
             }
-        });        
+        });          
     }
 }
 

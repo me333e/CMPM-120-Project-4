@@ -18,6 +18,13 @@
         "health": 25,
         "speed": 50,
         "money": 3
+    },
+
+    {
+        "name": "jerry",
+        "health": 50,
+        "speed": 40,
+        "money": 20
     }
        
 ]
