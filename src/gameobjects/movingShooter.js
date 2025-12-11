@@ -69,7 +69,7 @@ export class MovingShooter extends Phaser.GameObjects.Sprite {
         this.buttons = scene.add.group("buttons");
 
         const upgradeButtons = [
-            { active: upgradeActive, disabled: upgradeDisabled, x: x - 20, y: y - 65, afford: "upgrade", cost: '10' },
+            { active: upgradeActive, disabled: upgradeDisabled, x: x - 20, y: y - 65, afford: "upgrade", cost: '15' },
             { active: deleteActive, disabled: deleteDisabled, x: x + 26, y: y - 65, afford: "delete", cost: '' }
         ];
 

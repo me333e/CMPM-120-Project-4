@@ -55,7 +55,7 @@ export class DebuffShooter extends Phaser.GameObjects.Sprite {
         this.buttons = scene.add.group("buttons");
 
         const upgradeButtons = [
-            { active: upgradeActive, disabled: upgradeDisabled, x: x - 18, y: y - 65, afford: "upgrade", cost: '10' },
+            { active: upgradeActive, disabled: upgradeDisabled, x: x - 18, y: y - 65, afford: "upgrade", cost: '15' },
             { active: deleteActive, disabled: deleteDisabled, x: x + 28, y: y - 65, afford: "delete", cost: '' }
         ];
 

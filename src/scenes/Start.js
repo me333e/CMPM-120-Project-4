@@ -305,7 +305,7 @@ export class Start extends Phaser.Scene {
             this.timer -= 1000;
         }
 
-        if (this.currency >= 10) {
+        if (this.currency >= 15) {
             this.afford["basic"] = true;
             this.afford["debuff"] = true;
             this.afford["rangeMoving"] = true;
