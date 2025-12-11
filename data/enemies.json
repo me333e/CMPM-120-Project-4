@@ -22,7 +22,7 @@
 
     {
         "name": "jerry",
-        "health": 250,
+        "health": 225,
         "speed": 50,
         "money": 20
     }
