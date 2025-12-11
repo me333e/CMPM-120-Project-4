@@ -229,7 +229,8 @@ export class Start extends Phaser.Scene {
                         y: this.spawnPoint.y,
                         type: type, // get type of enemy from wave
                         hp: stats.health, // get health from enemy stats
-                        money: stats.money // get money from enemy stats
+                        money: stats.money, // get money from enemy stats
+                        speed: stats.speed // get speed from enemy stats
                     });
                     //console.log("Spawning enemy at " + this.spawnPoint.x + ", " + this.spawnPoint.y), // debug line
                     console.log("Monster instance: ", monster); // debug line

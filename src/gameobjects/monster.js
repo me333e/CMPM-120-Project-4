@@ -7,7 +7,8 @@ export class Monster extends Phaser.GameObjects.Sprite {
         y = 0, // default y
         type, // monster type
         hp, // health points
-        money
+        money,
+        speed
     }) 
     
     {
@@ -38,11 +39,14 @@ export class Monster extends Phaser.GameObjects.Sprite {
         this.maxHP = hp;
         this.hp = hp;
         this.money = money;
+        this.maxSpeed = speed;
+        this.speed = speed;
+
         this.healthBar = new HealthBar(scene, x - 20, y - 32); // create health bar
         this.healthBar.max = hp;
         this.healthBar.setValue(hp);
 
-        console.log(`${type} initialized with HP: ${hp}`);
+        console.log(`${type} initialized with HP: ${hp}, Speed: ${speed}`); // debug 
     }
 
     takeDamage(amount) {
@@ -70,7 +74,7 @@ export class Monster extends Phaser.GameObjects.Sprite {
         if (this.circle) {
             this.circle.x = this.x;
             this.circle.y = this.y;
-
+            
             this.scene.towerGroup.children.iterate((tower) => {
                 tower.attack_speed = tower.saved_attack_speed;
             });

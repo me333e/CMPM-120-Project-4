@@ -24,16 +24,7 @@ export class MonsterPathing {
         }
          
       
-        var speedFactor; // speed based on type
-        if (this.type === 'slime') {
-            speedFactor = 25; // 50 for slime, 300 for debug
-        } else if (this.type === 'wolf') {
-            // console.log("Setting speed for wolf"); debug line
-            speedFactor = 50; // 100 for wolf, 400 for debug
-        }
-        else if (this.type === 'alina') {
-            speedFactor = 25;
-        }
+        const speedFactor = monster.speed || 25; // use monster speed or default
 
         const pathLength = this.curve.getLength();
         const monsterSpeed = pathLength / speedFactor * 1000; // duration based on speed
