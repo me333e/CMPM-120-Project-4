@@ -22,7 +22,7 @@ Upgrades for Towers : 1.5
 When you click on the tower, you can see they have an upgrade avaiable for that specific tower: the basic shooter will shoot faster, the debuff shooter will slow the enemies down even more than normal, the range shooter will have increased damage, and the moving shooter will shoot more bullets at once than before.
 
 Special Enemy (Alina) : 3
-My boss enemy functions just like the normal enemies (they have a health bar, walk along the path, have an animation) and my boss has a special debuffing power that is applied to the towers. When the towers are in my boss's range, their attack speed is slowed down by 70% (ex. attack speed of 500 goes to 850, it really isn't as slow as it sounds because this is in milliseconds).
+My boss enemy functions just like the normal enemies (they have a health bar, walk along the path, have an animation) and my boss has a special debuffing power that is applied to the towers. When the towers are in my boss's range, their attack speed is slowed down by 70% (ex. attack speed of 500 goes to 850, it really isn't as slow as it sounds because this is in milliseconds) and the towers are tinted blue to help indicate to the player that their towers are being debuffed.
 
 Special Enemy (Jerry) : (how many points you should get here)
 (why you should get that many points here)
