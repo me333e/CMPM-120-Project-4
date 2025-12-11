@@ -24,7 +24,7 @@ When you click on the tower, you can see they have an upgrade avaiable for that 
 Special Enemy (Alina) : 3
 My boss enemy functions just like the normal enemies (they have a health bar, walk along the path, have an animation) and my boss has a special debuffing power that is applied to the towers. When the towers are in my boss's range, their attack speed is slowed down by 70% (ex. attack speed of 500 goes to 850, it really isn't as slow as it sounds because this is in milliseconds) and the towers are tinted blue to help indicate to the player that their towers are being debuffed.
 
-Special Enemy (Jerry) : 
+Special Enemy (Jerry) : 3
 My boss enemy follows a standard enemy format (have a health bar, walk along the path, have an animation, can be targeted by towers, die, and give money upon death),
 but my boss has a special power: being "empowered". Not only does it have higher stats than normal monsters, it's immune to debuffing or being slowed and when its around 50% HP, begins its Phase 2 Behavior or struggle phase in which it gets pushed back towards the beginning of the road (about 30%), doubles it's speed, instantly heals 20% of its HP back, then every 2 seconds, heals 10% of its HP back.
 
