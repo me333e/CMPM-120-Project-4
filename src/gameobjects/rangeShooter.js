@@ -93,6 +93,7 @@ export class RangeShooter extends Phaser.GameObjects.Sprite {
 
             this.circle.setVisible(false);
             this.seeCircle = false;
+            this.circle.destroy();
             this.buttons.children.iterate((button) => {
                 button.towerClicked = false;
             });
